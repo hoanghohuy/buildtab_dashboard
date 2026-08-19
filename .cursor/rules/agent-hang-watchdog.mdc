@@ -1,0 +1,37 @@
+---
+description: Detect hung Task/subagents and auto-resume or re-dispatch without waiting for PO.
+alwaysApply: true
+---
+
+# Agent hang watchdog (Dashboard multi-agents)
+
+Long `@Task(lead-dev|qa-agent|…)` runs that only do browser/kiosk visual or multi-tab measure often hit **user interrupt or silent stall** with **partial files and no Agents Log footer**. That is a hang — not a PO decision gate.
+
+## Orchestrator must enforce wall clocks
+
+| Agent / wave class | Soft budget | Hard stop |
+|--------------------|-------------|-----------|
+| strategy / technical WAVE_CARD (docs-only) | 8 min | 12 min |
+| lead unit/lint/wiring (no full kiosk Layer B) | 15 min | 25 min |
+| QA Layer B product visual (1080p tab + KPI spot) | 10 min setup | 20 min total |
+| Multi-tab visual matrix (≥4 tabs) | 8 min / tab | 40 min wave; **slice** if exceeded |
+
+**Không** giữ một Task 24h soak kiosk — soak là job/harness ngoài vòng Task.
+
+When soft budget elapses with no new evidence (no new `Agents Logs/NNN.*` · no `result.json`/`qa-result.json` mtime):
+
+1. **Do not wait for PO.**
+2. Treat as `AGENT_HANG` · write a 3-line note to campaign Agents Logs.
+3. **Resume** with `Task(resume=…)` once with a narrowed prompt, **or** fork a **new** Task with smaller scope.
+4. Prefer **slice**: one tab · one fixture · then report-up — never one mega-task (4 tabs × many cold loads).
+
+## Parallel safety
+
+- Prefer **two shorter Tasks** over one long Task when work is independent (e.g. KPI contract tests ∥ TV visual).
+- After any `Task was interrupted` / empty subagent return: **immediate** re-dispatch next free log number — count as env recovery, not product FAIL.
+
+## Forbidden
+
+- Soft Ceiling / invent PASS because a Task hung
+- Asking PO “agent treo rồi làm gì?”
+- Re-running the **identical** unbounded Task without slicing scope after a hang

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22c55e" stop-opacity="0.22" />
+      <stop offset="1" stop-color="#020617" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827" />
+      <stop offset="1" stop-color="#0b1220" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="#0b1220" />
+  <rect width="800" height="450" fill="url(#bg)" />
+
+  <!-- Ground -->
+  <path d="M-50 330 C 120 280, 250 305, 380 290 C 520 273, 640 250, 860 270 L 860 520 L -50 520 Z" fill="#0f172a" />
+  <path d="M-50 340 C 120 295, 250 320, 380 305 C 520 288, 640 265, 860 285" fill="none" stroke="#22c55e" stroke-opacity="0.25" stroke-width="4" />
+
+  <!-- Road -->
+  <path d="M70 240 L 730 240 L 760 330 L 40 330 Z" fill="url(#road)" />
+
+  <!-- Lane lines -->
+  <path d="M110 255 L 650 255" stroke="#fbbf24" stroke-width="3" stroke-opacity="0.85" />
+  <path d="M140 270 L 620 270" stroke="#f8fafc" stroke-width="2" stroke-opacity="0.55" />
+
+  <!-- Earthworks blocks -->
+  <g opacity="0.85">
+    <rect x="150" y="315" width="90" height="32" rx="6" fill="#1f2937" />
+    <rect x="270" y="310" width="120" height="40" rx="6" fill="#111827" />
+    <rect x="420" y="312" width="110" height="36" rx="6" fill="#1f2937" />
+    <rect x="555" y="318" width="85" height="28" rx="6" fill="#111827" />
+  </g>
+
+  <text x="50%" y="412" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#e5e7eb">
+    Doan cao toc - Km20
+  </text>
+</svg>
+

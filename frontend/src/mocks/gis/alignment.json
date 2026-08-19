@@ -1,0 +1,101 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "segmentId": "seg-01",
+        "kmFrom": 0,
+        "kmTo": 15,
+        "spi": 1.05,
+        "spiStatus": "good"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [106.0, 10.7],
+          [106.2, 10.75],
+          [106.4, 10.8],
+          [106.55, 10.85]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segmentId": "seg-02",
+        "kmFrom": 15,
+        "kmTo": 30,
+        "spi": 0.99,
+        "spiStatus": "normal"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [106.55, 10.85],
+          [106.7, 10.95],
+          [106.8, 11.05],
+          [106.9, 11.15]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segmentId": "seg-03",
+        "kmFrom": 30,
+        "kmTo": 45,
+        "spi": 0.9,
+        "spiStatus": "warning"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [106.9, 11.15],
+          [107.0, 11.3],
+          [107.1, 11.35],
+          [107.2, 11.45]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segmentId": "seg-04",
+        "kmFrom": 45,
+        "kmTo": 60,
+        "spi": 0.8,
+        "spiStatus": "danger"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [107.2, 11.45],
+          [107.1, 11.55],
+          [107.0, 11.6],
+          [106.9, 11.65]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segmentId": "seg-05",
+        "kmFrom": 60,
+        "kmTo": 78.5,
+        "spi": 0.75,
+        "spiStatus": "danger"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [106.9, 11.65],
+          [106.8, 11.7],
+          [106.7, 11.72],
+          [106.6, 11.75]
+        ]
+      }
+    }
+  ]
+}
+

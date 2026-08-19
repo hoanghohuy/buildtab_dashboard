@@ -1,0 +1,81 @@
+{
+  "success": true,
+  "data": {
+    "kpis": [
+      { "key": "total-investment", "label": "Tổng mức đầu tư", "value": 24860, "unit": "tỷ đồng", "formatted": "24.860 tỷ", "status": "good" },
+      { "key": "contract-signed", "label": "Đã ký hợp đồng", "value": 22150, "unit": "tỷ đồng", "formatted": "22.150 tỷ", "status": "good", "delta": { "value": 89.1, "isPositive": true, "direction": "flat", "comparedTo": "% TMĐT" } },
+      { "key": "commitment", "label": "Cam kết chi", "value": 18200, "unit": "tỷ đồng", "formatted": "18.200 tỷ", "status": "normal", "delta": { "value": 73.2, "isPositive": true, "direction": "flat", "comparedTo": "% TMĐT" } },
+      { "key": "certified", "label": "Nghiệm thu luỹ kế", "value": 14500, "unit": "tỷ đồng", "formatted": "14.500 tỷ", "status": "normal", "delta": { "value": 58.3, "isPositive": true, "direction": "up", "comparedTo": "% TMĐT" } },
+      { "key": "disbursed", "label": "Giải ngân luỹ kế", "value": 11980, "unit": "tỷ đồng", "formatted": "11.980 tỷ", "status": "warning", "delta": { "value": 48.2, "isPositive": false, "direction": "down", "comparedTo": "% TMĐT" }, "sparkline": [5200, 6100, 7000, 7800, 8500, 9200, 9800, 10300, 10800, 11200, 11600, 11980] },
+      { "key": "cpi", "label": "CPI (Cost Performance Index)", "value": 1.02, "unit": "", "formatted": "1,02", "status": "good", "delta": { "value": 0.01, "isPositive": true, "direction": "up", "comparedTo": "tháng trước" } }
+    ],
+    "waterfall": [
+      { "label": "TMĐT", "value": 24860, "type": "total" },
+      { "label": "Dự phòng", "value": -2480, "type": "decrease", "color": "#64748b" },
+      { "label": "GPMB", "value": -3730, "type": "decrease", "color": "#f59e0b" },
+      { "label": "TVTK & Quản lý", "value": -1490, "type": "decrease", "color": "#8b5cf6" },
+      { "label": "Xây lắp ký HĐ", "value": -16150, "type": "decrease", "color": "#3b82f6" },
+      { "label": "Chưa ký", "value": -710, "type": "decrease", "color": "#94a3b8" },
+      { "label": "Còn lại", "value": 300, "type": "total", "color": "#10b981" }
+    ],
+    "disbursementCurve": [
+      { "month": "2025-09", "planned": 820, "actual": 780, "cumulativePlannedPercent": 3.3, "cumulativeActualPercent": 3.1 },
+      { "month": "2025-10", "planned": 950, "actual": 900, "cumulativePlannedPercent": 7.1, "cumulativeActualPercent": 6.8 },
+      { "month": "2025-11", "planned": 1100, "actual": 1020, "cumulativePlannedPercent": 11.6, "cumulativeActualPercent": 10.9 },
+      { "month": "2025-12", "planned": 1250, "actual": 1150, "cumulativePlannedPercent": 16.6, "cumulativeActualPercent": 15.5 },
+      { "month": "2026-01", "planned": 1050, "actual": 980, "cumulativePlannedPercent": 20.8, "cumulativeActualPercent": 19.4 },
+      { "month": "2026-02", "planned": 900, "actual": 820, "cumulativePlannedPercent": 24.5, "cumulativeActualPercent": 22.7 },
+      { "month": "2026-03", "planned": 1200, "actual": 1080, "cumulativePlannedPercent": 29.3, "cumulativeActualPercent": 27.1 },
+      { "month": "2026-04", "planned": 1350, "actual": 1200, "cumulativePlannedPercent": 34.7, "cumulativeActualPercent": 31.9 },
+      { "month": "2026-05", "planned": 1400, "actual": 1250, "cumulativePlannedPercent": 40.4, "cumulativeActualPercent": 36.9 },
+      { "month": "2026-06", "planned": 1500, "actual": 1380, "cumulativePlannedPercent": 46.4, "cumulativeActualPercent": 42.5 },
+      { "month": "2026-07", "planned": 1550, "actual": 1420, "cumulativePlannedPercent": 52.7, "cumulativeActualPercent": 48.2 },
+      { "month": "2026-08", "planned": 1600, "actual": 0, "cumulativePlannedPercent": 59.1, "cumulativeActualPercent": 48.2 }
+    ],
+    "costBreakdown": [
+      { "category": "Xây lắp", "value": 16150, "percentage": 65, "disbursed": 8200, "color": "#3b82f6" },
+      { "category": "GPMB", "value": 3730, "percentage": 15, "disbursed": 2800, "color": "#f59e0b" },
+      { "category": "Tư vấn thiết kế", "value": 1120, "percentage": 4.5, "disbursed": 950, "color": "#8b5cf6" },
+      { "category": "Tư vấn giám sát", "value": 620, "percentage": 2.5, "disbursed": 380, "color": "#06b6d4" },
+      { "category": "Quản lý dự án", "value": 500, "percentage": 2, "disbursed": 320, "color": "#10b981" },
+      { "category": "Dự phòng", "value": 2480, "percentage": 10, "disbursed": 0, "color": "#64748b" },
+      { "category": "Chi phí khác", "value": 260, "percentage": 1, "disbursed": 130, "color": "#94a3b8" }
+    ],
+    "packagePayments": [
+      { "packageId": "pkg-xl01", "packageCode": "XL-01", "packageName": "Cầu vượt kênh - Km12", "contractorName": "Vinaconex", "contractValue": 4520, "certifiedPercent": 65, "paidPercent": 58, "advanceRemaining": 226, "status": "normal" },
+      { "packageId": "pkg-xl02", "packageCode": "XL-02", "packageName": "Nền đường Km15-Km28", "contractorName": "Cienco4", "contractValue": 3890, "certifiedPercent": 52, "paidPercent": 45, "advanceRemaining": 195, "status": "warning" },
+      { "packageId": "pkg-xl03", "packageCode": "XL-03", "packageName": "Hầm chui Km33", "contractorName": "TASCO", "contractValue": 4200, "certifiedPercent": 42, "paidPercent": 38, "advanceRemaining": 210, "status": "warning" },
+      { "packageId": "pkg-xl04", "packageCode": "XL-04", "packageName": "Cầu cạn Km40-Km45", "contractorName": "Đèo Cả Group", "contractValue": 5100, "certifiedPercent": 48, "paidPercent": 42, "advanceRemaining": 255, "status": "normal" },
+      { "packageId": "pkg-xl05", "packageCode": "XL-05", "packageName": "Nút giao Km52", "contractorName": "Trường Sơn", "contractValue": 2950, "certifiedPercent": 40, "paidPercent": 35, "advanceRemaining": 148, "status": "normal" },
+      { "packageId": "pkg-xl06", "packageCode": "XL-06", "packageName": "Mặt đường & an toàn GT", "contractorName": "Vinaconex", "contractValue": 1490, "certifiedPercent": 20, "paidPercent": 15, "advanceRemaining": 75, "status": "good" }
+    ],
+    "variationOrders": [
+      { "id": "vo-01", "title": "Thay đổi kết cấu móng trụ T3 cầu Km12", "value": 12.5, "reason": "Địa chất thực tế khác khảo sát, cần cọc sâu hơn 8m", "status": "approved" },
+      { "id": "vo-02", "title": "Bổ sung tường chắn Km22-Km23", "value": 8.2, "reason": "Sạt lở taluy dương sau mưa lớn T6/2026", "status": "reviewing" },
+      { "id": "vo-03", "title": "Thay đổi tuyến tránh Km48", "value": 18.7, "reason": "Di dời hạ tầng điện cao thế 220kV", "status": "proposed" }
+    ],
+    "totalVOValue": 39.4,
+    "voRatio": 0.18,
+    "monthlyDisbursement": [
+      { "month": "2025-09", "planned": 820, "actual": 780 },
+      { "month": "2025-10", "planned": 950, "actual": 900 },
+      { "month": "2025-11", "planned": 1100, "actual": 1020 },
+      { "month": "2025-12", "planned": 1250, "actual": 1150 },
+      { "month": "2026-01", "planned": 1050, "actual": 980 },
+      { "month": "2026-02", "planned": 900, "actual": 820 },
+      { "month": "2026-03", "planned": 1200, "actual": 1080 },
+      { "month": "2026-04", "planned": 1350, "actual": 1200 },
+      { "month": "2026-05", "planned": 1400, "actual": 1250 },
+      { "month": "2026-06", "planned": 1500, "actual": 1380 },
+      { "month": "2026-07", "planned": 1550, "actual": 1420 },
+      { "month": "2026-08", "planned": 1600, "actual": 0 }
+    ],
+    "generatedAt": "2026-08-19T09:30:00+07:00"
+  },
+  "meta": {
+    "generatedAt": "2026-08-19T09:30:00+07:00",
+    "sourceSyncedAt": "2026-08-19T09:20:00+07:00",
+    "cacheHit": false,
+    "sources": ["ERP", "P6"]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "title": "Finance",
+  "cashFlow": {
+    "title": "Cash Flow",
+    "planned": "Planned",
+    "actual": "Actual",
+    "cumulative": "Cumulative",
+    "monthly": "Monthly"
+  },
+  "disbursement": {
+    "title": "Disbursement",
+    "rate": "Disbursement Rate",
+    "target": "Target",
+    "actual": "Actual",
+    "remaining": "Remaining",
+    "byPackage": "By Package"
+  },
+  "costStructure": {
+    "title": "Cost Structure",
+    "construction": "Construction",
+    "consulting": "Consulting",
+    "landClearance": "Land Clearance",
+    "management": "Project Management",
+    "contingency": "Contingency",
+    "other": "Other"
+  },
+  "packages": {
+    "title": "Packages",
+    "name": "Package Name",
+    "contractValue": "Contract Value",
+    "paid": "Paid",
+    "retention": "Retention",
+    "progress": "Progress"
+  },
+  "variation": {
+    "title": "Variations",
+    "totalVariation": "Total Variation",
+    "approved": "Approved",
+    "pending": "Pending",
+    "rejected": "Rejected",
+    "variationRate": "Variation Rate"
+  },
+  "fundingSource": {
+    "title": "Funding Sources",
+    "statebudget": "State Budget",
+    "oda": "ODA",
+    "bond": "Government Bond",
+    "ppp": "PPP",
+    "allocated": "Allocated",
+    "disbursed": "Disbursed"
+  }
+}

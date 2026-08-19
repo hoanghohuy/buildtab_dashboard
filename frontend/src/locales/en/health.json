@@ -1,0 +1,42 @@
+{
+  "title": "Contractor / Consultant Health",
+  "radar": {
+    "title": "Radar Chart",
+    "overall": "Overall"
+  },
+  "matrix": {
+    "title": "Evaluation Matrix",
+    "contractor": "Contractor",
+    "consultant": "Consultant",
+    "score": "Score",
+    "rank": "Rank"
+  },
+  "heatmap": {
+    "title": "Performance Heatmap",
+    "period": "Evaluation Period",
+    "metric": "Metric"
+  },
+  "scorecard": {
+    "title": "Scorecard",
+    "current": "Current",
+    "previous": "Previous",
+    "change": "Change",
+    "target": "Target"
+  },
+  "alert": {
+    "title": "Alerts",
+    "critical": "Critical",
+    "warning": "Warning",
+    "count": "Alert Count",
+    "latestAt": "Updated at"
+  },
+  "pillars": {
+    "title": "6 Evaluation Pillars",
+    "submittalCompliance": "Submittal Compliance",
+    "scheduleAdherence": "Schedule Adherence",
+    "qualityScore": "Quality",
+    "safetyRecord": "Safety Record",
+    "resourceMobilization": "Resource Mobilization",
+    "financialHealth": "Financial Health"
+  }
+}

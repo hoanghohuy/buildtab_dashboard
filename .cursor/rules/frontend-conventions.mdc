@@ -1,0 +1,36 @@
+---
+description: TypeScript/React conventions for the Executive Dashboard — feature folders, SWR, BFF-owned KPI, 10-foot UI.
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Frontend & API conventions
+
+## Stack (binding when code exists)
+
+- TypeScript, functional React + hooks, Tailwind (no inline style except dynamic grid coords).
+- SWR for server state; Redux Toolkit for UI (tab, kiosk, filters, perf-mode).
+- react-hook-form + zod for admin forms; i18next default `vi`.
+- Absolute imports `@/` → `src`. Feature-based folders.
+- Charts: ECharts (canvas). Map: MapLibre. Org: React Flow.
+
+## Naming
+
+| Kind | Rule |
+|------|------|
+| Components | PascalCase |
+| Hooks | `use` + camelCase |
+| Constants | `UPPER_SNAKE_CASE` |
+| Types/interfaces | prefix `I`, PascalCase |
+| Services | PascalCase + `Service` |
+| Utils | camelCase |
+
+JSDoc on exported functions, hooks, components. No `any` / `any[]` / `unknown` unless unavoidable.
+
+## Product contracts in code
+
+- Frontend **does not compute KPI**. BFF returns shaped tab payloads.
+- Widget must handle loading / empty / error / stale (cache + timestamp, never blank TV).
+- TV: font token ≥ `caption` 18px; max 9 widgets/tab; Top N = 5; no page scroll at 1920×1080.
+- Numbers: VN grouping (`24.860,5 tỷ`); delta color = **direction tốt**, not “tăng = xanh”.
+- Cleanup: `echarts.dispose()`, timer/SSE unsubscribe, no unbounded listeners (kiosk 24/7).

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0ea5e9" stop-opacity="0.25" />
+      <stop offset="1" stop-color="#020617" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="river" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#2563eb" stop-opacity="0.65" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="#0b1220" />
+  <rect width="800" height="450" fill="url(#bg)" />
+
+  <!-- River -->
+  <path d="M-40 235 C 120 155, 240 155, 410 230 C 560 300, 650 320, 850 265 L 850 520 L -40 520 Z" fill="url(#river)" />
+  <path d="M-40 245 C 130 172, 250 172, 420 238 C 560 290, 650 305, 850 270" fill="none" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="3" />
+
+  <!-- Road deck -->
+  <path d="M60 230 L 740 230 L 760 280 L 40 280 Z" fill="#111827" />
+  <path d="M70 245 L 730 245 L 745 270 L 55 270 Z" fill="#0b1220" opacity="0.35" />
+
+  <!-- Bridge supports -->
+  <g fill="#e5e7eb" opacity="0.85">
+    <rect x="190" y="275" width="18" height="70" rx="4" />
+    <rect x="245" y="275" width="18" height="70" rx="4" />
+    <rect x="300" y="275" width="18" height="70" rx="4" />
+    <rect x="355" y="275" width="18" height="70" rx="4" />
+    <rect x="410" y="275" width="18" height="70" rx="4" />
+    <rect x="465" y="275" width="18" height="70" rx="4" />
+    <rect x="520" y="275" width="18" height="70" rx="4" />
+    <rect x="575" y="275" width="18" height="70" rx="4" />
+  </g>
+
+  <!-- Road markings -->
+  <path d="M80 252 L 720 252" stroke="#34d399" stroke-width="3" stroke-opacity="0.9" />
+  <path d="M80 266 L 720 266" stroke="#93c5fd" stroke-width="2" stroke-opacity="0.6" />
+
+  <text x="50%" y="412" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#e5e7eb">
+    Cau vuot kenh - Km12
+  </text>
+</svg>
+

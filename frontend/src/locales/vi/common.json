@@ -1,0 +1,41 @@
+{
+  "appName": "Executive Dashboard",
+  "projectName": "Dự án Cao tốc Bắc-Nam đoạn XYZ",
+  "tabs": {
+    "overview": "Tổng quan",
+    "orgChart": "Sơ đồ tổ chức",
+    "finance": "Tài chính",
+    "contractorHealth": "Sức khỏe nhà thầu"
+  },
+  "updatedAt": "Cập nhật {{time}}",
+  "updatedAgo": "{{minutes}} phút trước",
+  "dataSource": "Nguồn: {{source}}",
+  "loading": "Đang tải...",
+  "error": "Không tải được dữ liệu",
+  "retry": "Thử lại",
+  "noData": "Chưa có dữ liệu",
+  "staleData": "Dữ liệu cũ",
+  "unit": {
+    "billion": "tỷ",
+    "million": "triệu",
+    "percent": "%",
+    "days": "ngày",
+    "weeks": "tuần",
+    "submissions": "hồ sơ",
+    "packages": "gói",
+    "units": "đơn vị",
+    "people": "người"
+  },
+  "status": {
+    "good": "Tốt",
+    "normal": "Bình thường",
+    "warning": "Cần chú ý",
+    "danger": "Nghiêm trọng",
+    "critical": "Rất nghiêm trọng"
+  },
+  "kiosk": {
+    "pause": "Tạm dừng",
+    "resume": "Tiếp tục",
+    "fullscreen": "Toàn màn hình"
+  }
+}

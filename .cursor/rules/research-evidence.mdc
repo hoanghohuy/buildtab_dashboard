@@ -1,0 +1,28 @@
+---
+description: Conventions for research memos and evidence under 0 - Documents and Documents/0-Draft — observation only, redact secrets, cite manifests.
+globs: "0 - Documents/**/*,Documents/**/*"
+alwaysApply: false
+---
+
+# Research & evidence docs
+
+Applies when editing `0 - Documents/**`, `Documents/0-Draft/**`, or campaign notes.
+
+## Observation only
+
+- Draft / Thảo luận / V0 = **observation**. Không mở `authorized_box` hay claim FINAL SLA từ memo.
+- Implementation authorize sống ở `Documents/1-Sprints/**` sau PO quyết định.
+
+## Evidence hygiene
+
+- Mỗi run: `run-manifest.json` + `analyst-notes.md` (hoặc tương đương).
+- Screenshot: đường dẫn trong index — **không** nhúng base64 lớn vào markdown.
+- Redact tokens, cookies, signed URLs trước khi commit.
+- Phân biệt rõ: measured · inferred · hypothesis.
+- **Không** commit dump Excel / ảnh công trường gốc / vector tile / HAR đầy đủ. Ghi size + SHA-256 + regenerate path. Xem `.cursor/rules/no-large-binary-artifacts.mdc`.
+
+## Writing
+
+- Tiêu đề có ngày ISO (`YYYY-MM-DD`) khi là snapshot session.
+- Link tương đối tới evidence folder.
+- Khi so sánh tab / kiosk / nguồn CDE vs ERP: ghi fixture, viewport (1080p/4K), cold/warm cache, mock vs live.

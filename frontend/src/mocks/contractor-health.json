@@ -1,0 +1,94 @@
+{
+  "success": true,
+  "data": {
+    "kpis": [
+      { "key": "avg-health", "label": "Điểm sức khoẻ TB", "value": 73.5, "unit": "điểm", "formatted": "73,5", "status": "normal", "delta": { "value": 1.2, "isPositive": true, "direction": "up", "comparedTo": "tháng trước" } },
+      { "key": "excellent-count", "label": "Đơn vị Xuất sắc", "value": 1, "unit": "đơn vị", "formatted": "1", "status": "good" },
+      { "key": "watch-count", "label": "Đơn vị Cần theo dõi", "value": 4, "unit": "đơn vị", "formatted": "4", "status": "warning" },
+      { "key": "critical-count", "label": "Đơn vị Nguy cơ cao", "value": 1, "unit": "đơn vị", "formatted": "1", "status": "danger" },
+      { "key": "early-warnings", "label": "Cảnh báo sớm", "value": 3, "unit": "cảnh báo", "formatted": "3", "status": "warning" },
+      { "key": "improvement-rate", "label": "Tỷ lệ cải thiện", "value": 62.5, "unit": "%", "formatted": "62,5%", "status": "normal" }
+    ],
+    "contractors": [
+      {
+        "organizationId": "org-ct01", "organizationName": "Vinaconex", "role": "contractor",
+        "pillars": { "progress": 82, "document": 88, "quality": 90, "safety": 85, "resource": 80, "finance": 78 },
+        "totalScore": 84, "band": "good", "history": [78, 79, 80, 81, 82, 83, 84], "scoreChange": 1, "rank": 1, "rankChange": 0, "workloadValue": 7720, "packageCount": 3
+      },
+      {
+        "organizationId": "org-tvtk01", "organizationName": "TEDI", "role": "designer",
+        "pillars": { "progress": 95, "document": 92, "quality": 88, "safety": 90, "resource": 85, "finance": 82 },
+        "totalScore": 92, "band": "excellent", "history": [88, 89, 90, 90, 91, 91, 92], "scoreChange": 1, "rank": 2, "rankChange": 1, "workloadValue": 580, "packageCount": 4
+      },
+      {
+        "organizationId": "org-ct02", "organizationName": "Cienco4", "role": "contractor",
+        "pillars": { "progress": 68, "document": 72, "quality": 78, "safety": 75, "resource": 65, "finance": 70 },
+        "totalScore": 71, "band": "watch", "history": [65, 66, 68, 69, 70, 70, 71], "scoreChange": 1, "rank": 3, "rankChange": -1, "workloadValue": 3890, "packageCount": 1
+      },
+      {
+        "organizationId": "org-ct03", "organizationName": "TASCO", "role": "contractor",
+        "pillars": { "progress": 62, "document": 68, "quality": 75, "safety": 72, "resource": 60, "finance": 65 },
+        "totalScore": 67, "band": "watch", "history": [70, 69, 68, 67, 66, 67, 67], "scoreChange": 0, "rank": 4, "rankChange": 0, "workloadValue": 7000, "packageCount": 2
+      },
+      {
+        "organizationId": "org-ct04", "organizationName": "Đèo Cả Group", "role": "contractor",
+        "pillars": { "progress": 65, "document": 70, "quality": 72, "safety": 68, "resource": 62, "finance": 68 },
+        "totalScore": 68, "band": "watch", "history": [72, 71, 70, 69, 68, 68, 68], "scoreChange": 0, "rank": 5, "rankChange": -1, "workloadValue": 5100, "packageCount": 1
+      },
+      {
+        "organizationId": "org-ct05", "organizationName": "Trường Sơn", "role": "contractor",
+        "pillars": { "progress": 55, "document": 58, "quality": 65, "safety": 60, "resource": 48, "finance": 52 },
+        "totalScore": 56, "band": "risk", "history": [60, 59, 58, 57, 56, 56, 56], "scoreChange": 0, "rank": 6, "rankChange": 0, "workloadValue": 4800, "packageCount": 2
+      },
+      {
+        "organizationId": "org-tvtk02", "organizationName": "TEDIS", "role": "designer",
+        "pillars": { "progress": 85, "document": 82, "quality": 80, "safety": 88, "resource": 78, "finance": 75 },
+        "totalScore": 81, "band": "good", "history": [76, 77, 78, 79, 80, 80, 81], "scoreChange": 1, "rank": 7, "rankChange": 1, "workloadValue": 340, "packageCount": 2
+      },
+      {
+        "organizationId": "org-tvgs01", "organizationName": "VRCC", "role": "supervisor",
+        "pillars": { "progress": 78, "document": 80, "quality": 82, "safety": 85, "resource": 72, "finance": 70 },
+        "totalScore": 78, "band": "good", "history": [74, 75, 76, 76, 77, 77, 78], "scoreChange": 1, "rank": 8, "rankChange": 0, "workloadValue": 420, "packageCount": 4
+      }
+    ],
+    "heatmapData": [
+      { "organizationName": "Vinaconex", "pillars": { "progress": 82, "document": 88, "quality": 90, "safety": 85, "resource": 80, "finance": 78 } },
+      { "organizationName": "TEDI", "pillars": { "progress": 95, "document": 92, "quality": 88, "safety": 90, "resource": 85, "finance": 82 } },
+      { "organizationName": "Cienco4", "pillars": { "progress": 68, "document": 72, "quality": 78, "safety": 75, "resource": 65, "finance": 70 } },
+      { "organizationName": "TASCO", "pillars": { "progress": 62, "document": 68, "quality": 75, "safety": 72, "resource": 60, "finance": 65 } },
+      { "organizationName": "Đèo Cả Group", "pillars": { "progress": 65, "document": 70, "quality": 72, "safety": 68, "resource": 62, "finance": 68 } },
+      { "organizationName": "Trường Sơn", "pillars": { "progress": 55, "document": 58, "quality": 65, "safety": 60, "resource": 48, "finance": 52 } },
+      { "organizationName": "TEDIS", "pillars": { "progress": 85, "document": 82, "quality": 80, "safety": 88, "resource": 78, "finance": 75 } },
+      { "organizationName": "VRCC", "pillars": { "progress": 78, "document": 80, "quality": 82, "safety": 85, "resource": 72, "finance": 70 } }
+    ],
+    "earlyWarnings": [
+      {
+        "warningId": "ew-01", "organizationId": "org-ct05", "organizationName": "Trường Sơn",
+        "severity": "high", "title": "Thiếu nhân lực và thiết bị trầm trọng",
+        "reasons": ["Số lượng máy đào chỉ đạt 60% kế hoạch", "Nhân công giảm 35% so với cam kết", "Tiến độ 2 gói liên tục chậm 3 tháng gần nhất"],
+        "recommendation": "Yêu cầu bổ sung thiết bị trong 2 tuần hoặc xem xét điều chuyển khối lượng", "dueDate": "2026-09-02"
+      },
+      {
+        "warningId": "ew-02", "organizationId": "org-ct03", "organizationName": "TASCO",
+        "severity": "medium", "title": "Chất lượng hồ sơ BVTC suy giảm",
+        "reasons": ["FTAR giảm từ 78% xuống 62% trong 3 tháng", "3 bộ BVTC bị trả lại lần 2", "Thiếu kỹ sư thiết kế chuyên ngành hầm"],
+        "recommendation": "Tăng cường nhân sự thiết kế, họp kỹ thuật hàng tuần với TVTK"
+      },
+      {
+        "warningId": "ew-03", "organizationId": "org-ct04", "organizationName": "Đèo Cả Group",
+        "severity": "medium", "title": "Dòng tiền căng thẳng, chậm thanh toán thầu phụ",
+        "reasons": ["Tỷ lệ tạm ứng còn lại chỉ 5%", "Nợ thầu phụ tăng 40% so với quý trước", "Chậm hoàn ứng 2 đợt nghiệm thu"],
+        "recommendation": "Đẩy nhanh nghiệm thu giai đoạn, xem xét điều chỉnh tiến độ thanh toán"
+      }
+    ],
+    "avgScore": 73.5,
+    "trendHistory": [70, 71, 71.5, 72, 72.5, 73, 73.5],
+    "generatedAt": "2026-08-19T09:30:00+07:00"
+  },
+  "meta": {
+    "generatedAt": "2026-08-19T09:30:00+07:00",
+    "sourceSyncedAt": "2026-08-19T09:25:00+07:00",
+    "cacheHit": false,
+    "sources": ["CDE", "ERP", "P6"]
+  }
+}

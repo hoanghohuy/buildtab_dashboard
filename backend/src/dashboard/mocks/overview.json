@@ -1,0 +1,165 @@
+{
+  "success": true,
+  "data": {
+    "kpis": [
+      {
+        "key": "overall-progress",
+        "label": "Tiến độ tổng thể",
+        "value": 62.4,
+        "unit": "%",
+        "formatted": "62,4%",
+        "status": "warning",
+        "delta": { "value": 2.1, "isPositive": true, "direction": "up", "comparedTo": "tháng trước" },
+        "sparkline": [48, 50, 52, 54, 55, 57, 58, 59, 60, 61, 62, 62.4]
+      },
+      {
+        "key": "spi",
+        "label": "SPI (Schedule Performance Index)",
+        "value": 0.94,
+        "unit": "",
+        "formatted": "0,94",
+        "status": "warning",
+        "delta": { "value": 0.02, "isPositive": true, "direction": "up", "comparedTo": "tháng trước" },
+        "sparkline": [0.88, 0.89, 0.90, 0.91, 0.90, 0.91, 0.92, 0.93, 0.92, 0.93, 0.93, 0.94]
+      },
+      {
+        "key": "disbursement",
+        "label": "Giải ngân luỹ kế",
+        "value": 48.2,
+        "unit": "%",
+        "formatted": "48,2%",
+        "status": "warning",
+        "delta": { "value": 3.5, "isPositive": true, "direction": "up", "comparedTo": "tháng trước" },
+        "sparkline": [28, 30, 33, 35, 37, 39, 41, 43, 44, 45, 47, 48.2]
+      },
+      {
+        "key": "document-ontime",
+        "label": "Hồ sơ đúng hạn",
+        "value": 76,
+        "unit": "%",
+        "formatted": "76%",
+        "status": "normal",
+        "delta": { "value": 1.5, "isPositive": false, "direction": "down", "comparedTo": "tháng trước" },
+        "sparkline": [80, 79, 78, 78, 77, 77, 78, 77, 76, 77, 77, 76]
+      },
+      {
+        "key": "critical-risks",
+        "label": "Rủi ro nghiêm trọng",
+        "value": 7,
+        "unit": "vấn đề",
+        "formatted": "7",
+        "status": "danger",
+        "delta": { "value": 2, "isPositive": false, "direction": "up", "comparedTo": "tháng trước" },
+        "sparkline": [3, 3, 4, 4, 5, 4, 5, 5, 5, 6, 5, 7]
+      },
+      {
+        "key": "next-milestone",
+        "label": "Mốc tiến độ gần nhất",
+        "value": -42,
+        "unit": "ngày",
+        "formatted": "D-42",
+        "status": "warning"
+      }
+    ],
+    "documentProgress": {
+      "points": [
+        { "month": "2025-07", "baseline": 5, "actual": 4.5, "forecast": null },
+        { "month": "2025-08", "baseline": 8, "actual": 7, "forecast": null },
+        { "month": "2025-09", "baseline": 12, "actual": 10.5, "forecast": null },
+        { "month": "2025-10", "baseline": 17, "actual": 15, "forecast": null },
+        { "month": "2025-11", "baseline": 22, "actual": 19, "forecast": null },
+        { "month": "2025-12", "baseline": 28, "actual": 24, "forecast": null },
+        { "month": "2026-01", "baseline": 35, "actual": 30, "forecast": null },
+        { "month": "2026-02", "baseline": 42, "actual": 37, "forecast": null },
+        { "month": "2026-03", "baseline": 50, "actual": 44, "forecast": null },
+        { "month": "2026-04", "baseline": 57, "actual": 51, "forecast": null },
+        { "month": "2026-05", "baseline": 64, "actual": 57, "forecast": null },
+        { "month": "2026-06", "baseline": 70, "actual": 62, "forecast": null },
+        { "month": "2026-07", "baseline": 76, "actual": 68, "forecast": null },
+        { "month": "2026-08", "baseline": 81, "actual": 72, "forecast": null },
+        { "month": "2026-09", "baseline": 85, "actual": null, "forecast": 76 },
+        { "month": "2026-10", "baseline": 89, "actual": null, "forecast": 80 },
+        { "month": "2026-11", "baseline": 92, "actual": null, "forecast": 84 },
+        { "month": "2026-12", "baseline": 94, "actual": null, "forecast": 87 },
+        { "month": "2027-01", "baseline": 96, "actual": null, "forecast": 90 },
+        { "month": "2027-02", "baseline": 97, "actual": null, "forecast": 92 },
+        { "month": "2027-03", "baseline": 98, "actual": null, "forecast": 94 },
+        { "month": "2027-04", "baseline": 99, "actual": null, "forecast": 96 },
+        { "month": "2027-05", "baseline": 99.5, "actual": null, "forecast": 97.5 },
+        { "month": "2027-06", "baseline": 100, "actual": null, "forecast": 99 }
+      ],
+      "unit": "%"
+    },
+    "delayedPackages": [
+      { "packageId": "pkg-xl01", "packageCode": "XL-01", "packageName": "Cầu vượt sông Hồng - Km12", "contractorName": "Vinaconex", "delayDays": 45, "reason": "Chậm GPMB mố cầu phía Bắc", "status": "danger" },
+      { "packageId": "pkg-xl02", "packageCode": "XL-02", "packageName": "Nền đường Km15-Km28", "contractorName": "Cienco4", "delayDays": 32, "reason": "Thiếu nguồn đất đắp, mỏ đất chưa cấp phép", "status": "warning" },
+      { "packageId": "pkg-xl03", "packageCode": "XL-03", "packageName": "Hầm chui Km33", "contractorName": "TASCO", "delayDays": 28, "reason": "Chậm phê duyệt BVTC hầm chui", "status": "warning" },
+      { "packageId": "pkg-xl04", "packageCode": "XL-04", "packageName": "Cầu cạn Km40-Km45", "contractorName": "Đèo Cả Group", "delayDays": 18, "reason": "Thay đổi thiết kế móng cọc do địa chất", "status": "normal" },
+      { "packageId": "pkg-xl05", "packageCode": "XL-05", "packageName": "Nút giao Km52", "contractorName": "Trường Sơn", "delayDays": 12, "reason": "Chờ di dời hạ tầng kỹ thuật", "status": "normal" }
+    ],
+    "designerRanking": [
+      { "organizationId": "org-tvtk01", "organizationName": "TEDI", "submissionRate": 95, "ftar": 88, "score": 91.5, "rank": 1, "trend": 2 },
+      { "organizationId": "org-tvtk02", "organizationName": "TEDIS", "submissionRate": 88, "ftar": 82, "score": 85, "rank": 2, "trend": 0 },
+      { "organizationId": "org-tvtk03", "organizationName": "TEDI South", "submissionRate": 82, "ftar": 75, "score": 78.5, "rank": 3, "trend": -1 },
+      { "organizationId": "org-tvtk04", "organizationName": "Đại học GTVT", "submissionRate": 72, "ftar": 68, "score": 70, "rank": 4, "trend": 1 },
+      { "organizationId": "org-tvtk05", "organizationName": "APECO", "submissionRate": 60, "ftar": 55, "score": 57.5, "rank": 5, "trend": -2 }
+    ],
+    "contractorRanking": [
+      { "organizationId": "org-ct01", "organizationName": "Vinaconex", "submissionRate": 92, "ftar": 85, "score": 88.5, "rank": 1, "trend": 0 },
+      { "organizationId": "org-ct02", "organizationName": "Cienco4", "submissionRate": 85, "ftar": 78, "score": 81.5, "rank": 2, "trend": 1 },
+      { "organizationId": "org-ct03", "organizationName": "TASCO", "submissionRate": 78, "ftar": 72, "score": 75, "rank": 3, "trend": -1 },
+      { "organizationId": "org-ct04", "organizationName": "Đèo Cả Group", "submissionRate": 70, "ftar": 65, "score": 67.5, "rank": 4, "trend": 0 },
+      { "organizationId": "org-ct05", "organizationName": "Trường Sơn", "submissionRate": 65, "ftar": 60, "score": 62.5, "rank": 5, "trend": -1 }
+    ],
+    "topRisks": [
+      { "riskId": "risk-01", "title": "Chậm GPMB khu vực Km10-Km15", "category": "GPMB", "probability": 4, "impact": 5, "score": 20, "owner": "Ban GPMB tỉnh A", "status": "critical", "mitigation": "Phối hợp UBND huyện, đề xuất cưỡng chế" },
+      { "riskId": "risk-02", "title": "Thiếu nguồn vật liệu đất đắp", "category": "Vật liệu", "probability": 4, "impact": 4, "score": 16, "owner": "Nhà thầu Cienco4", "status": "danger", "mitigation": "Khảo sát mỏ dự phòng Km30" },
+      { "riskId": "risk-03", "title": "Chậm phê duyệt BVTC hầm chui Km33", "category": "Hồ sơ", "probability": 3, "impact": 5, "score": 15, "owner": "TVTK TEDI", "status": "danger", "mitigation": "Họp đẩy nhanh review BVTC" },
+      { "riskId": "risk-04", "title": "Biến động giá thép Q3/2026", "category": "Tài chính", "probability": 3, "impact": 4, "score": 12, "owner": "Ban QLDA", "status": "warning", "mitigation": "Bù giá theo hợp đồng, mua dự trữ" },
+      { "riskId": "risk-05", "title": "Mưa kéo dài ảnh hưởng thi công nền", "category": "Thời tiết", "probability": 4, "impact": 3, "score": 12, "owner": "Nhà thầu Vinaconex", "status": "warning", "mitigation": "Thi công ca 3, bù tiến độ mùa khô" }
+    ],
+    "riskMatrix": [
+      [0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0],
+      [0, 0, 0, 1, 1],
+      [0, 1, 0, 1, 0],
+      [0, 0, 0, 0, 1]
+    ],
+    "sitePhotos": [
+      { "id": "photo-01", "url": "/photos/cau-vuot-km12.jpg", "thumbnailUrl": "/photos/thumb/cau-vuot-km12.jpg", "packageCode": "XL-01", "location": "Km12 - Cầu vượt sông Hồng", "description": "Thi công trụ T3 - đổ bê tông mũ trụ", "capturedAt": "2026-08-18T08:30:00+07:00", "isLive": false },
+      { "id": "photo-02", "url": "/photos/nen-duong-km20.jpg", "thumbnailUrl": "/photos/thumb/nen-duong-km20.jpg", "packageCode": "XL-02", "location": "Km20 - Nền đường", "description": "Lu lèn K98 lớp đất đắp thứ 5", "capturedAt": "2026-08-17T14:00:00+07:00", "isLive": false },
+      { "id": "photo-03", "url": "/photos/ham-chui-km33.jpg", "thumbnailUrl": "/photos/thumb/ham-chui-km33.jpg", "packageCode": "XL-03", "location": "Km33 - Hầm chui", "description": "Đào hố móng giai đoạn 1", "capturedAt": "2026-08-16T10:00:00+07:00", "isLive": false },
+      { "id": "photo-04", "url": "/photos/cau-can-km42.jpg", "thumbnailUrl": "/photos/thumb/cau-can-km42.jpg", "packageCode": "XL-04", "location": "Km42 - Cầu cạn", "description": "Lắp dầm Super-T nhịp 3-4", "capturedAt": "2026-08-18T06:00:00+07:00", "isLive": false },
+      { "id": "photo-05", "url": "/photos/nut-giao-km52.jpg", "thumbnailUrl": "/photos/thumb/nut-giao-km52.jpg", "packageCode": "XL-05", "location": "Km52 - Nút giao", "description": "San nền, chuẩn bị mặt bằng", "capturedAt": "2026-08-15T09:00:00+07:00", "isLive": false },
+      { "id": "photo-06", "url": "/photos/live-cam-km0.jpg", "thumbnailUrl": "/photos/thumb/live-cam-km0.jpg", "packageCode": "XL-01", "location": "Km0 - Điểm đầu tuyến", "description": "Camera trực tiếp - Trạm thu phí tạm", "capturedAt": "2026-08-19T09:30:00+07:00", "isLive": true }
+    ],
+    "milestones": [
+      { "id": "ms-01", "name": "Khởi công", "plannedDate": "2025-06-15", "actualDate": "2025-06-20", "status": "good", "progressPercent": 100, "delayDays": 5 },
+      { "id": "ms-02", "name": "Hoàn thành GPMB 80%", "plannedDate": "2025-12-31", "actualDate": "2026-02-10", "status": "warning", "progressPercent": 100, "delayDays": 41 },
+      { "id": "ms-03", "name": "Xong móng cầu chính", "plannedDate": "2026-06-30", "actualDate": "2026-07-25", "status": "warning", "progressPercent": 100, "delayDays": 25 },
+      { "id": "ms-04", "name": "Thông xe kỹ thuật đoạn 1 (Km0-Km25)", "plannedDate": "2026-09-30", "status": "warning", "progressPercent": 72 },
+      { "id": "ms-05", "name": "Hợp long cầu chính", "plannedDate": "2027-01-15", "status": "normal", "progressPercent": 45 },
+      { "id": "ms-06", "name": "Thông xe toàn tuyến", "plannedDate": "2027-06-30", "status": "normal", "progressPercent": 20 },
+      { "id": "ms-07", "name": "Nghiệm thu hoàn thành", "plannedDate": "2027-09-30", "status": "normal", "progressPercent": 0 }
+    ],
+    "projectInfo": {
+      "name": "Cao tốc Bắc-Nam đoạn Ninh Bình - Thanh Hoá",
+      "length": 78.5,
+      "lanes": 4,
+      "totalInvestment": 24860,
+      "fundingSource": "Ngân sách Nhà nước + Vốn vay ODA",
+      "startDate": "2025-06-15",
+      "plannedEndDate": "2027-09-30",
+      "owner": "Ban QLDA đường cao tốc Bắc-Nam phía Đông",
+      "progressPercent": 62.4,
+      "daysRemaining": 407
+    },
+    "generatedAt": "2026-08-19T09:30:00+07:00"
+  },
+  "meta": {
+    "generatedAt": "2026-08-19T09:30:00+07:00",
+    "sourceSyncedAt": "2026-08-19T09:15:00+07:00",
+    "cacheHit": false,
+    "sources": ["CDE", "P6"]
+  }
+}

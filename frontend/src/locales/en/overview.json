@@ -1,0 +1,71 @@
+{
+  "title": "Project Overview",
+  "map": {
+    "title": "Route Map",
+    "layerRoute": "Main Route",
+    "layerPackages": "Packages",
+    "layerProgress": "Progress",
+    "layerIssues": "Hotspots",
+    "zoomToFit": "Zoom to Fit",
+    "tooltip": "Click a package for details"
+  },
+  "sCurve": {
+    "title": "Submittal S-Curve",
+    "planned": "Planned",
+    "actual": "Actual",
+    "forecast": "Forecast",
+    "deviation": "Deviation",
+    "xAxis": "Time",
+    "yAxis": "Cumulative Submittals"
+  },
+  "topDelay": {
+    "title": "Top Delayed Packages",
+    "package": "Package",
+    "delayDays": "Delay (days)",
+    "reason": "Reason",
+    "responsible": "Responsible Unit"
+  },
+  "ranking": {
+    "title": "Contractor / Consultant Ranking",
+    "rank": "Rank",
+    "name": "Unit",
+    "score": "Score",
+    "trend": "Trend"
+  },
+  "risk": {
+    "title": "Risk Matrix",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "impact": "Impact",
+    "probability": "Probability",
+    "activeRisks": "Active Risks"
+  },
+  "sitePhotos": {
+    "title": "Site Photos",
+    "latest": "Latest",
+    "location": "Location",
+    "takenAt": "Taken at"
+  },
+  "milestones": {
+    "title": "Key Milestones",
+    "milestone": "Milestone",
+    "planned": "Planned",
+    "actual": "Actual",
+    "status": "Status",
+    "daysRemaining": "Remaining",
+    "completed": "Completed",
+    "overdue": "Overdue",
+    "upcoming": "Upcoming"
+  },
+  "projectInfo": {
+    "title": "Project Info",
+    "totalLength": "Total Length",
+    "totalBudget": "Total Budget",
+    "startDate": "Start Date",
+    "endDate": "Completion Date",
+    "owner": "Owner",
+    "pmu": "PMU",
+    "packages": "Packages"
+  }
+}

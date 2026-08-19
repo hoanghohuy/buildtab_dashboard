@@ -1,0 +1,42 @@
+{
+  "title": "Sức khỏe nhà thầu / tư vấn",
+  "radar": {
+    "title": "Biểu đồ radar",
+    "overall": "Tổng thể"
+  },
+  "matrix": {
+    "title": "Ma trận đánh giá",
+    "contractor": "Nhà thầu",
+    "consultant": "Tư vấn",
+    "score": "Điểm",
+    "rank": "Xếp hạng"
+  },
+  "heatmap": {
+    "title": "Heatmap hiệu suất",
+    "period": "Kỳ đánh giá",
+    "metric": "Chỉ số"
+  },
+  "scorecard": {
+    "title": "Bảng điểm",
+    "current": "Hiện tại",
+    "previous": "Kỳ trước",
+    "change": "Thay đổi",
+    "target": "Mục tiêu"
+  },
+  "alert": {
+    "title": "Cảnh báo",
+    "critical": "Nghiêm trọng",
+    "warning": "Cần chú ý",
+    "count": "Số cảnh báo",
+    "latestAt": "Cập nhật lúc"
+  },
+  "pillars": {
+    "title": "6 trụ cột đánh giá",
+    "submittalCompliance": "Tuân thủ hồ sơ",
+    "scheduleAdherence": "Bám tiến độ",
+    "qualityScore": "Chất lượng",
+    "safetyRecord": "An toàn lao động",
+    "resourceMobilization": "Huy động nguồn lực",
+    "financialHealth": "Năng lực tài chính"
+  }
+}

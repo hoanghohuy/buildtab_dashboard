@@ -1,0 +1,45 @@
+{
+  "title": "Sơ đồ tổ chức",
+  "cluster": {
+    "title": "Cụm dự án",
+    "subProject": "Dự án thành phần",
+    "package": "Gói thầu"
+  },
+  "role": {
+    "title": "Vai trò",
+    "owner": "Chủ đầu tư",
+    "pmu": "Ban QLDA",
+    "supervisor": "Tư vấn giám sát",
+    "designer": "Tư vấn thiết kế",
+    "reviewer": "Tư vấn thẩm tra",
+    "contractor": "Nhà thầu chính",
+    "subContractor": "Thầu phụ"
+  },
+  "unit": {
+    "title": "Đơn vị",
+    "personnel": "Nhân sự",
+    "totalStaff": "Tổng nhân sự",
+    "keyPersonnel": "Nhân sự chủ chốt"
+  },
+  "contact": {
+    "title": "Đầu mối liên hệ",
+    "name": "Họ tên",
+    "position": "Chức vụ",
+    "phone": "Điện thoại",
+    "email": "Email"
+  },
+  "health": {
+    "title": "Sức khỏe đơn vị",
+    "overallScore": "Điểm tổng",
+    "submittals": "Hồ sơ",
+    "quality": "Chất lượng",
+    "safety": "An toàn",
+    "schedule": "Tiến độ"
+  },
+  "detail": {
+    "title": "Chi tiết",
+    "viewProfile": "Xem hồ sơ",
+    "viewPackages": "Xem gói thầu",
+    "viewHistory": "Lịch sử đánh giá"
+  }
+}

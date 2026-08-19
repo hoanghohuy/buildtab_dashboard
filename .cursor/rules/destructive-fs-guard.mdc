@@ -1,0 +1,68 @@
+---
+description: Hard stop on recursive/drive-root deletes. Incident 2026-08-15 — rmdir quoting wiped E:\.
+alwaysApply: true
+---
+
+# Destructive filesystem guard
+
+**Incident (binding):** 2026-08-15 · lead-dev G0 hygiene intended to delete a chrome profile. PowerShell `cmd /c "rmdir /s /q \"E:\...\"` lost the quotes and ran `rmdir /s /q \` against **drive E:\**. Recycle Bin, OneDrive, Viewer worktrees, `.git`, and artifact stores were walked.
+
+Hygiene is **not** a license to recursive-delete. Same machine, same risk in this repo.
+
+## Never run
+
+```text
+cmd /c rmdir /s
+rmdir /s /q
+Remove-Item -Recurse   on anything other than one resolved leaf
+robocopy ... /MIR
+git clean -fdx
+del /s /q
+rm -rf
+```
+
+Never pass a filesystem path through `cmd /c` with escaped quotes (`\"...\"`). Use PowerShell `-LiteralPath` only.
+
+## Allowed delete (all must hold)
+
+1. Target is **one** existing leaf (file or empty-enough directory).
+2. `Resolve-Path -LiteralPath` succeeds.
+3. Resolved full path **starts with** an allowlist prefix written in the WAVE_CARD / this turn's task.
+4. Resolved path does **not** equal and does **not** prefix-match a deny prefix.
+5. After delete, confirm the allowlist parent still contains `.git` when it existed before.
+
+If any check fails: **do not delete**. Leave the folder. Gitignore it. Write a pointer note. STOP.
+
+## Deny prefixes (abort immediately)
+
+```text
+E:\
+C:\
+E:\$RECYCLE.BIN
+C:\$Recycle.Bin
+E:\0-Development\
+E:\0-Development\Dashboard\
+E:\0-Development\Viewer\
+E:\OneDrive*
+C:\Users\
+**/.git
+**/apps
+**/src
+**/packages
+**/node_modules
+```
+
+Also abort if command output contains: `$RECYCLE.BIN` · `pagefile.sys` · `Program Files` · `System Volume Information` · `OneDrive`.
+
+## Chrome / browser profiles
+
+Do **not** recursive-delete `**/.chrome-profile*` or `**/chrome-profile*` under the repo or evidence. Options:
+
+- leave in place (gitignored)
+- `Move-Item -LiteralPath` to a **new** gitignored scratch **outside** the repo, destination created first and verified
+
+Never `robocopy /MIR` an empty dir onto a profile path.
+
+## Orchestrator / strategy
+
+Do not put “recursive delete chrome profile / free disk / wipe scratch” in a WAVE_CARD or TEAM_DIRECTIVE. Full-auto does not include drive hygiene.

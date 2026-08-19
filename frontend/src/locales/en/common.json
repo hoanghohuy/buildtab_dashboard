@@ -1,0 +1,41 @@
+{
+  "appName": "Executive Dashboard",
+  "projectName": "North-South Expressway Project — Section XYZ",
+  "tabs": {
+    "overview": "Overview",
+    "orgChart": "Org Chart",
+    "finance": "Finance",
+    "contractorHealth": "Contractor Health"
+  },
+  "updatedAt": "Updated {{time}}",
+  "updatedAgo": "{{minutes}} minutes ago",
+  "dataSource": "Source: {{source}}",
+  "loading": "Loading...",
+  "error": "Failed to load data",
+  "retry": "Retry",
+  "noData": "No data available",
+  "staleData": "Stale data",
+  "unit": {
+    "billion": "bn",
+    "million": "m",
+    "percent": "%",
+    "days": "days",
+    "weeks": "weeks",
+    "submissions": "submittals",
+    "packages": "packages",
+    "units": "units",
+    "people": "people"
+  },
+  "status": {
+    "good": "Good",
+    "normal": "Normal",
+    "warning": "Warning",
+    "danger": "Danger",
+    "critical": "Critical"
+  },
+  "kiosk": {
+    "pause": "Pause",
+    "resume": "Resume",
+    "fullscreen": "Fullscreen"
+  }
+}

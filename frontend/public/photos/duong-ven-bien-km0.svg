@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.18" />
+      <stop offset="1" stop-color="#020617" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.55" />
+      <stop offset="1" stop-color="#1d4ed8" stop-opacity="0.8" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="#0b1220" />
+  <rect width="800" height="450" fill="url(#bg)" />
+
+  <!-- Sea -->
+  <path d="M-40 250 C 120 205, 240 210, 370 195 C 520 178, 650 160, 900 185 L 900 520 L -40 520 Z" fill="url(#sea)" />
+  <path d="M-40 280 C 130 240, 250 248, 380 232 C 520 214, 650 195, 900 214" fill="none" stroke="#93c5fd" stroke-opacity="0.35" stroke-width="4" />
+  <path d="M-40 315 C 130 275, 250 285, 380 270 C 520 252, 650 235, 900 250" fill="none" stroke="#22d3ee" stroke-opacity="0.25" stroke-width="4" />
+
+  <!-- Coastal road -->
+  <path d="M60 240 L 740 240 L 760 310 L 40 310 Z" fill="#111827" />
+  <path d="M110 255 L 690 255" stroke="#34d399" stroke-width="3" stroke-opacity="0.85" />
+
+  <!-- Dunes -->
+  <path d="M-40 330 C 140 300, 270 330, 430 315 C 585 300, 670 280, 900 300 L 900 520 L -40 520 Z" fill="#0f172a" opacity="0.9" />
+
+  <text x="50%" y="412" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#e5e7eb">
+    Duong ven bien - Km0
+  </text>
+</svg>
+

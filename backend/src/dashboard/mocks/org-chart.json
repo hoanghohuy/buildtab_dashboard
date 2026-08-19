@@ -1,0 +1,141 @@
+{
+  "success": true,
+  "data": {
+    "clusters": [
+      { "id": "cl-01", "name": "Cao tốc Km0-Km25", "type": "highway", "scopeKm": 25, "packageCount": 3, "unitCount": 8, "progressPercent": 72, "hasAlert": true },
+      { "id": "cl-02", "name": "Cao tốc Km25-Km50", "type": "highway", "scopeKm": 25, "packageCount": 3, "unitCount": 7, "progressPercent": 58, "hasAlert": true },
+      { "id": "cl-03", "name": "Cầu chính", "type": "bridge", "scopeKm": 3.2, "packageCount": 2, "unitCount": 6, "progressPercent": 65, "hasAlert": false },
+      { "id": "cl-04", "name": "Hầm & Nút giao", "type": "tunnel", "scopeKm": 5.8, "packageCount": 2, "unitCount": 5, "progressPercent": 48, "hasAlert": true }
+    ],
+    "orgTree": [
+      {
+        "cluster": { "id": "cl-01", "name": "Cao tốc Km0-Km25", "type": "highway", "scopeKm": 25, "packageCount": 3, "unitCount": 8, "progressPercent": 72, "hasAlert": true },
+        "roles": [
+          {
+            "role": "investor",
+            "units": [
+              { "id": "org-inv01", "name": "Ban QLDA đường cao tốc Bắc-Nam phía Đông", "shortName": "Ban QLDA", "role": "investor", "healthScore": 88, "healthBand": "good", "packageCodes": ["XL-01", "XL-02", "XL-03"], "contacts": [{ "id": "ct-01", "name": "Nguyễn Văn Minh", "title": "Giám đốc Ban", "phone": "0912345678", "email": "minh.nv@bqlda.gov.vn" }] }
+            ]
+          },
+          {
+            "role": "supervisor",
+            "units": [
+              { "id": "org-tvgs01", "name": "Công ty CP Tư vấn ĐBVN", "shortName": "VRCC", "role": "supervisor", "healthScore": 82, "healthBand": "good", "packageCodes": ["XL-01", "XL-02"], "contacts": [{ "id": "ct-02", "name": "Trần Đức Hùng", "title": "Trưởng đoàn TVGS", "phone": "0923456789", "email": "hung.td@vrcc.vn" }] },
+              { "id": "org-tvgs02", "name": "Công ty TNHH Apave Việt Nam", "shortName": "Apave", "role": "supervisor", "healthScore": 78, "healthBand": "good", "packageCodes": ["XL-03"], "contacts": [{ "id": "ct-03", "name": "Lê Thị Hương", "title": "Kỹ sư trưởng", "phone": "0934567890", "email": "huong.lt@apave.vn" }] }
+            ]
+          },
+          {
+            "role": "designer",
+            "units": [
+              { "id": "org-tvtk01", "name": "TEDI", "shortName": "TEDI", "role": "designer", "healthScore": 91, "healthBand": "excellent", "packageCodes": ["XL-01", "XL-02"], "contacts": [{ "id": "ct-04", "name": "Phạm Quốc Bảo", "title": "Chủ nhiệm đồ án", "phone": "0945678901", "email": "bao.pq@tedi.vn" }] }
+            ]
+          },
+          {
+            "role": "contractor",
+            "units": [
+              { "id": "org-ct01", "name": "Vinaconex", "shortName": "VCX", "role": "contractor", "healthScore": 85, "healthBand": "good", "packageCodes": ["XL-01"], "contractValue": 4520, "progressPercent": 68, "contacts": [{ "id": "ct-05", "name": "Hoàng Anh Tuấn", "title": "Chỉ huy trưởng", "phone": "0956789012", "email": "tuan.ha@vinaconex.vn" }, { "id": "ct-06", "name": "Vũ Đình Nam", "title": "Phó chỉ huy", "phone": "0967890123", "email": "nam.vd@vinaconex.vn" }] },
+              { "id": "org-ct02", "name": "Cienco4", "shortName": "C4", "role": "contractor", "healthScore": 75, "healthBand": "watch", "packageCodes": ["XL-02"], "contractValue": 3890, "progressPercent": 55, "contacts": [{ "id": "ct-07", "name": "Đỗ Minh Quang", "title": "Chỉ huy trưởng", "phone": "0978901234", "email": "quang.dm@cienco4.vn" }] }
+            ]
+          },
+          {
+            "role": "landAcquisition",
+            "units": [
+              { "id": "org-gpmb01", "name": "Trung tâm phát triển quỹ đất tỉnh Ninh Bình", "shortName": "TTPTQĐ NB", "role": "landAcquisition", "healthScore": 62, "healthBand": "watch", "packageCodes": ["XL-01", "XL-02"], "contacts": [{ "id": "ct-08", "name": "Bùi Văn Toàn", "title": "Giám đốc", "phone": "0989012345", "email": "toan.bv@ninhbinh.gov.vn" }] }
+            ]
+          }
+        ]
+      },
+      {
+        "cluster": { "id": "cl-02", "name": "Cao tốc Km25-Km50", "type": "highway", "scopeKm": 25, "packageCount": 3, "unitCount": 7, "progressPercent": 58, "hasAlert": true },
+        "roles": [
+          {
+            "role": "supervisor",
+            "units": [
+              { "id": "org-tvgs03", "name": "Công ty CP Tư vấn xây dựng giao thông", "shortName": "TECCO", "role": "supervisor", "healthScore": 80, "healthBand": "good", "packageCodes": ["XL-04", "XL-05"], "contacts": [{ "id": "ct-09", "name": "Ngô Thanh Sơn", "title": "Trưởng đoàn TVGS", "phone": "0901234567", "email": "son.nt@tecco.vn" }] }
+            ]
+          },
+          {
+            "role": "designer",
+            "units": [
+              { "id": "org-tvtk02", "name": "TEDIS", "shortName": "TEDIS", "role": "designer", "healthScore": 85, "healthBand": "good", "packageCodes": ["XL-04", "XL-05"], "contacts": [{ "id": "ct-10", "name": "Lý Hoàng Long", "title": "Chủ nhiệm đồ án", "phone": "0912345670", "email": "long.lh@tedis.vn" }] }
+            ]
+          },
+          {
+            "role": "contractor",
+            "units": [
+              { "id": "org-ct04", "name": "Đèo Cả Group", "shortName": "DCG", "role": "contractor", "healthScore": 72, "healthBand": "watch", "packageCodes": ["XL-04"], "contractValue": 5100, "progressPercent": 52, "contacts": [{ "id": "ct-11", "name": "Phan Văn Đức", "title": "Chỉ huy trưởng", "phone": "0923456780", "email": "duc.pv@deoca.vn" }] },
+              { "id": "org-ct05", "name": "Trường Sơn", "shortName": "TS", "role": "contractor", "healthScore": 68, "healthBand": "watch", "packageCodes": ["XL-05"], "contractValue": 2950, "progressPercent": 48, "contacts": [{ "id": "ct-12", "name": "Trịnh Xuân Hải", "title": "Chỉ huy trưởng", "phone": "0934567801", "email": "hai.tx@truongson.vn" }] }
+            ]
+          },
+          {
+            "role": "landAcquisition",
+            "units": [
+              { "id": "org-gpmb02", "name": "Trung tâm phát triển quỹ đất tỉnh Thanh Hoá", "shortName": "TTPTQĐ TH", "role": "landAcquisition", "healthScore": 55, "healthBand": "watch", "packageCodes": ["XL-04", "XL-05"], "contacts": [{ "id": "ct-13", "name": "Lê Đình Phong", "title": "Phó Giám đốc", "phone": "0945678012", "email": "phong.ld@thanhhoa.gov.vn" }] }
+            ]
+          }
+        ]
+      },
+      {
+        "cluster": { "id": "cl-03", "name": "Cầu chính", "type": "bridge", "scopeKm": 3.2, "packageCount": 2, "unitCount": 6, "progressPercent": 65, "hasAlert": false },
+        "roles": [
+          {
+            "role": "supervisor",
+            "units": [
+              { "id": "org-tvgs01", "name": "Công ty CP Tư vấn ĐBVN", "shortName": "VRCC", "role": "supervisor", "healthScore": 82, "healthBand": "good", "packageCodes": ["CÇ-01", "CÇ-02"], "contacts": [{ "id": "ct-02", "name": "Trần Đức Hùng", "title": "Trưởng đoàn TVGS", "phone": "0923456789", "email": "hung.td@vrcc.vn" }] }
+            ]
+          },
+          {
+            "role": "designer",
+            "units": [
+              { "id": "org-tvtk03", "name": "TEDI South", "shortName": "TEDI-S", "role": "designer", "healthScore": 78, "healthBand": "good", "packageCodes": ["CÇ-01", "CÇ-02"], "contacts": [{ "id": "ct-14", "name": "Đặng Minh Tuệ", "title": "Chủ nhiệm đồ án cầu", "phone": "0956780123", "email": "tue.dm@tedisouth.vn" }] }
+            ]
+          },
+          {
+            "role": "reviewer",
+            "units": [
+              { "id": "org-tv-tt01", "name": "Viện KH&CN GTVT", "shortName": "ITST", "role": "reviewer", "healthScore": 90, "healthBand": "excellent", "packageCodes": ["CÇ-01", "CÇ-02"], "contacts": [{ "id": "ct-15", "name": "GS.TS Nguyễn Hữu Thắng", "title": "Chủ tịch HĐ thẩm tra", "phone": "0967801234", "email": "thang.nh@itst.gov.vn" }] }
+            ]
+          },
+          {
+            "role": "contractor",
+            "units": [
+              { "id": "org-ct01", "name": "Vinaconex", "shortName": "VCX", "role": "contractor", "healthScore": 85, "healthBand": "good", "packageCodes": ["CÇ-01"], "contractValue": 3200, "progressPercent": 62, "contacts": [{ "id": "ct-05", "name": "Hoàng Anh Tuấn", "title": "Chỉ huy trưởng", "phone": "0956789012", "email": "tuan.ha@vinaconex.vn" }] },
+              { "id": "org-ct03", "name": "TASCO", "shortName": "TASCO", "role": "contractor", "healthScore": 70, "healthBand": "watch", "packageCodes": ["CÇ-02"], "contractValue": 2800, "progressPercent": 58, "contacts": [{ "id": "ct-16", "name": "Nguyễn Văn Hải", "title": "Chỉ huy trưởng cầu", "phone": "0978012345", "email": "hai.nv@tasco.vn" }] }
+            ]
+          }
+        ]
+      },
+      {
+        "cluster": { "id": "cl-04", "name": "Hầm & Nút giao", "type": "tunnel", "scopeKm": 5.8, "packageCount": 2, "unitCount": 5, "progressPercent": 48, "hasAlert": true },
+        "roles": [
+          {
+            "role": "supervisor",
+            "units": [
+              { "id": "org-tvgs02", "name": "Công ty TNHH Apave Việt Nam", "shortName": "Apave", "role": "supervisor", "healthScore": 78, "healthBand": "good", "packageCodes": ["HM-01", "NG-01"], "contacts": [{ "id": "ct-03", "name": "Lê Thị Hương", "title": "Kỹ sư trưởng", "phone": "0934567890", "email": "huong.lt@apave.vn" }] }
+            ]
+          },
+          {
+            "role": "designer",
+            "units": [
+              { "id": "org-tvtk01", "name": "TEDI", "shortName": "TEDI", "role": "designer", "healthScore": 91, "healthBand": "excellent", "packageCodes": ["HM-01", "NG-01"], "contacts": [{ "id": "ct-04", "name": "Phạm Quốc Bảo", "title": "Chủ nhiệm đồ án", "phone": "0945678901", "email": "bao.pq@tedi.vn" }] }
+            ]
+          },
+          {
+            "role": "contractor",
+            "units": [
+              { "id": "org-ct03", "name": "TASCO", "shortName": "TASCO", "role": "contractor", "healthScore": 70, "healthBand": "watch", "packageCodes": ["HM-01"], "contractValue": 4200, "progressPercent": 45, "contacts": [{ "id": "ct-16", "name": "Nguyễn Văn Hải", "title": "Chỉ huy trưởng", "phone": "0978012345", "email": "hai.nv@tasco.vn" }] },
+              { "id": "org-ct05", "name": "Trường Sơn", "shortName": "TS", "role": "contractor", "healthScore": 68, "healthBand": "watch", "packageCodes": ["NG-01"], "contractValue": 1850, "progressPercent": 42, "contacts": [{ "id": "ct-12", "name": "Trịnh Xuân Hải", "title": "Chỉ huy trưởng", "phone": "0934567801", "email": "hai.tx@truongson.vn" }] }
+            ]
+          }
+        ]
+      }
+    ],
+    "generatedAt": "2026-08-19T09:30:00+07:00"
+  },
+  "meta": {
+    "generatedAt": "2026-08-19T09:30:00+07:00",
+    "sourceSyncedAt": "2026-08-19T09:10:00+07:00",
+    "cacheHit": false,
+    "sources": ["CDE", "ERP"]
+  }
+}

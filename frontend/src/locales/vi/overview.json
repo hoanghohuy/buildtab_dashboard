@@ -1,0 +1,71 @@
+{
+  "title": "Tổng quan dự án",
+  "map": {
+    "title": "Bản đồ tuyến",
+    "layerRoute": "Tuyến chính",
+    "layerPackages": "Gói thầu",
+    "layerProgress": "Tiến độ",
+    "layerIssues": "Điểm nóng",
+    "zoomToFit": "Thu vừa tuyến",
+    "tooltip": "Nhấp gói thầu để xem chi tiết"
+  },
+  "sCurve": {
+    "title": "S-Curve tiến độ hồ sơ",
+    "planned": "Kế hoạch",
+    "actual": "Thực tế",
+    "forecast": "Dự báo",
+    "deviation": "Độ lệch",
+    "xAxis": "Thời gian",
+    "yAxis": "Lũy kế hồ sơ"
+  },
+  "topDelay": {
+    "title": "Top gói chậm nhất",
+    "package": "Gói thầu",
+    "delayDays": "Chậm (ngày)",
+    "reason": "Nguyên nhân",
+    "responsible": "Đơn vị chịu trách nhiệm"
+  },
+  "ranking": {
+    "title": "Xếp hạng nhà thầu / tư vấn",
+    "rank": "Hạng",
+    "name": "Đơn vị",
+    "score": "Điểm",
+    "trend": "Xu hướng"
+  },
+  "risk": {
+    "title": "Ma trận rủi ro",
+    "high": "Cao",
+    "medium": "Trung bình",
+    "low": "Thấp",
+    "impact": "Tác động",
+    "probability": "Xác suất",
+    "activeRisks": "Rủi ro đang mở"
+  },
+  "sitePhotos": {
+    "title": "Ảnh hiện trường",
+    "latest": "Mới nhất",
+    "location": "Vị trí",
+    "takenAt": "Chụp lúc"
+  },
+  "milestones": {
+    "title": "Mốc tiến độ quan trọng",
+    "milestone": "Mốc",
+    "planned": "Kế hoạch",
+    "actual": "Thực tế",
+    "status": "Trạng thái",
+    "daysRemaining": "Còn lại",
+    "completed": "Đã hoàn thành",
+    "overdue": "Quá hạn",
+    "upcoming": "Sắp tới"
+  },
+  "projectInfo": {
+    "title": "Thông tin dự án",
+    "totalLength": "Tổng chiều dài",
+    "totalBudget": "Tổng mức đầu tư",
+    "startDate": "Ngày khởi công",
+    "endDate": "Ngày hoàn thành",
+    "owner": "Chủ đầu tư",
+    "pmu": "Ban QLDA",
+    "packages": "Số gói thầu"
+  }
+}

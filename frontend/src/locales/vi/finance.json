@@ -1,0 +1,52 @@
+{
+  "title": "Tài chính",
+  "cashFlow": {
+    "title": "Dòng tiền",
+    "planned": "Kế hoạch",
+    "actual": "Thực tế",
+    "cumulative": "Lũy kế",
+    "monthly": "Tháng"
+  },
+  "disbursement": {
+    "title": "Giải ngân",
+    "rate": "Tỷ lệ giải ngân",
+    "target": "Mục tiêu",
+    "actual": "Thực tế",
+    "remaining": "Còn lại",
+    "byPackage": "Theo gói thầu"
+  },
+  "costStructure": {
+    "title": "Cơ cấu chi phí",
+    "construction": "Xây lắp",
+    "consulting": "Tư vấn",
+    "landClearance": "GPMB",
+    "management": "Quản lý dự án",
+    "contingency": "Dự phòng",
+    "other": "Khác"
+  },
+  "packages": {
+    "title": "Gói thầu",
+    "name": "Tên gói",
+    "contractValue": "Giá trị hợp đồng",
+    "paid": "Đã thanh toán",
+    "retention": "Bảo lãnh",
+    "progress": "Tiến độ"
+  },
+  "variation": {
+    "title": "Phát sinh",
+    "totalVariation": "Tổng phát sinh",
+    "approved": "Đã duyệt",
+    "pending": "Chờ duyệt",
+    "rejected": "Từ chối",
+    "variationRate": "Tỷ lệ phát sinh"
+  },
+  "fundingSource": {
+    "title": "Nguồn vốn",
+    "statebudget": "Ngân sách nhà nước",
+    "oda": "ODA",
+    "bond": "Trái phiếu",
+    "ppp": "PPP",
+    "allocated": "Đã phân bổ",
+    "disbursed": "Đã giải ngân"
+  }
+}

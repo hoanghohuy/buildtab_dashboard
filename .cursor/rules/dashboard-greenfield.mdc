@@ -1,0 +1,42 @@
+---
+description: Dashboard greenfield — North Star, repo layout, product contracts, evidence-first.
+alwaysApply: true
+---
+
+# Executive Dashboard (greenfield)
+
+Repo này là **Executive Dashboard** cho dự án đường cao tốc (linear infrastructure), không phải BIM viewer.
+
+## North Star
+
+- **Overview, không deep-dive** — kính viễn vọng, không kính hiển vi. Mỗi widget trả lời đúng 1 câu hỏi lãnh đạo.
+- **Màn hình chính = TV phòng điều hành** 1920×1080, xem 2.5–5 m, **không cuộn**. Tablet/laptop là phụ.
+- **Tiến độ hồ sơ** là leading indicator (không lấy % khối lượng làm trục chính).
+- Nguồn sự thật: CDE (ISO 19650) · ERP · P6/MSP — timestamp cập nhật luôn hiện.
+- 4 tab: Tổng quan · Org Chart · Tài chính · Sức khỏe nhà thầu/tư vấn.
+- KPI **tính ở BFF**, frontend không tự công thức.
+
+## Repo map
+
+| Path | Role |
+|------|------|
+| `apps/**`, `src/**` | Production (khi có) |
+| `0 - Documents/**` | Thảo luận / phân tích hiện tại (V0) |
+| `Documents/0-Draft/**` | Research, memo (observation) |
+| `Documents/1-Sprints/**` | Campaign SSOT, agent logs, authorize boxes |
+| `.cursor/**` | Rules, skills, agent profiles |
+
+V0 design SSOT: `0 - Documents/1 - ThaoLuan/V0/PHAN-TICH-THIET-KE-DASHBOARD.md`
+
+## Boundaries
+
+- **Research ≠ authorize.** Draft không mở `authorized_box`.
+- Telemetry / Lighthouse / TTI PASS ≠ product PASS. Ưu tiên mắt PO trên TV.
+- Secrets, token, HAR có cookie → redact trước khi commit.
+- Không commit dump Excel/ảnh công trường/vector tile lớn — size + SHA + regenerate path. Xem `no-large-binary-artifacts.mdc`.
+- Campaign đã ký: theo `po-governance.mdc` (autonomy trong cap · 4 cổng PO-human).
+
+## Language
+
+- Agent logs & campaign SSOT: tiếng Việt OK; code/identifier: English.
+- Commit: conventional (`feat:`, `fix:`, `docs:`, …) imperative subject.

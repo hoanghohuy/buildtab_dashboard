@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fb7185" stop-opacity="0.22" />
+      <stop offset="1" stop-color="#020617" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="span" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e5e7eb" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#94a3b8" stop-opacity="0.7" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="#0b1220" />
+  <rect width="800" height="450" fill="url(#bg)" />
+
+  <!-- Valley -->
+  <path d="M-40 285 C 120 235, 260 250, 420 230 C 565 210, 690 185, 900 205 L 900 520 L -40 520 Z" fill="#0f172a" />
+  <path d="M-40 300 C 120 252, 260 268, 420 248 C 565 228, 690 203, 900 220" fill="none" stroke="#fbbf24" stroke-opacity="0.18" stroke-width="5" />
+
+  <!-- Bridge spans -->
+  <path d="M90 225 L 710 225 L 735 255 L 65 255 Z" fill="url(#span)" opacity="0.9" />
+  <path d="M105 236 L 695 236" stroke="#0b1220" stroke-opacity="0.5" stroke-width="3" />
+
+  <!-- Piers -->
+  <g fill="#e5e7eb" opacity="0.85">
+    <rect x="165" y="260" width="20" height="85" rx="4" />
+    <rect x="255" y="250" width="22" height="95" rx="4" />
+    <rect x="345" y="260" width="20" height="85" rx="4" />
+    <rect x="435" y="248" width="22" height="97" rx="4" />
+    <rect x="525" y="260" width="20" height="85" rx="4" />
+    <rect x="615" y="252" width="22" height="93" rx="4" />
+  </g>
+
+  <!-- Deck -->
+  <path d="M70 250 L 730 250 L 760 318 L 40 318 Z" fill="#111827" />
+
+  <text x="50%" y="412" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#e5e7eb">
+    Cau can - Km42
+  </text>
+</svg>
+

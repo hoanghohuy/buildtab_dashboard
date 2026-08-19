@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+@config '../../tailwind.config.ts';
+@import './glass.css';
+
+@theme {
+  --font-sans: 'Be Vietnam Pro', Inter, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Thang chữ TV @1920×1080 — body tối thiểu 18px, KPI ~30px */
+  --text-caption: 18px;
+  --text-caption--line-height: 24px;
+  --text-body-md: 18px;
+  --text-body-md--line-height: 24px;
+  --text-body-lg: 20px;
+  --text-body-lg--line-height: 26px;
+  --text-heading-md: 22px;
+  --text-heading-md--line-height: 28px;
+  --text-display-lg: 30px;
+  --text-display-lg--line-height: 34px;
+  --text-display-xl: 36px;
+  --text-display-xl--line-height: 40px;
+}
+
+:root {
+  /* Nền & hiệu ứng */
+  --bg-base: #070b14;
+  --bg-gradient: radial-gradient(
+    ellipse at 20% 0%,
+    #0f1b33 0%,
+    #070b14 55%
+  );
+
+  --aurora-1: #1e40af;
+  --aurora-2: #0e7490;
+  --aurora-3: #5b21b6;
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.045);
+  --glass-bg-hover: rgba(255, 255, 255, 0.075);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-highlight: rgba(255, 255, 255, 0.16);
+
+  /* Chữ */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+
+  /* Semantic + glow (token cố định, không tự ý thay đổi) */
+  --accent: #22d3ee;
+  --accent-glow: 0 0 24px rgba(34, 211, 238, 0.35);
+
+  --success: #34d399;
+  --success-glow: 0 0 24px rgba(52, 211, 153, 0.3);
+
+  --warning: #fbbf24;
+  --warning-glow: 0 0 24px rgba(251, 191, 36, 0.3);
+
+  --danger: #fb7185;
+  --danger-glow: 0 0 24px rgba(251, 113, 133, 0.35);
+
+  --info: #a78bfa;
+
+  --neutral: #64748b;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+html,
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Be Vietnam Pro', Inter, system-ui, sans-serif;
+  overflow: hidden; /* TV mode: không cuộn */
+}
+
+body {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+/* Chart container: đảm bảo ECharts fill widget body */
+.chart-fill {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Kiosk: ẩn con trỏ khi idle (kích hoạt trong useIdleDetection). */
+.kiosk-hide-cursor {
+  cursor: none !important;
+}
+

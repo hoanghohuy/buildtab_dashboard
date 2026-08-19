@@ -1,0 +1,46 @@
+---
+description: Never commit large dumps (Excel, site photos, GIS tiles, HAR) into evidence, Agents Logs, or draft docs — SHA/size/regenerate path only.
+globs: "0 - Documents/**/*,Documents/**/*"
+alwaysApply: true
+---
+
+# No large binary artifacts in git
+
+GitHub **rejects files > 100 MiB**. Media / GIS / spreadsheet dumps must **never** be committed under:
+
+- `Documents/1-Sprints/**/evidence/**`
+- `Documents/1-Sprints/**/Agents Logs/**`
+- `Documents/0-Draft/**`
+- `0 - Documents/**`
+- any other path that is normally pushed to GitHub
+
+## Allowed in git
+
+- Markdown / JSON evidence: size bytes · SHA-256 · import command · fixture pointer
+- `BINARY-NOT-IN-GIT.md` (or equivalent) pointer next to where the blob *would* live
+- Small screenshots / logs within normal repo hygiene (prefer < 2 MiB each)
+
+## Forbidden in git
+
+- Raw site-photo folders, GeoTIFF, MBTiles, large GeoJSON (>20 MiB)
+- Excel/CSV dumps used as ETL input (keep gitignored `artifacts/` or MinIO pointer)
+- Embedding large base64 payloads in markdown
+- Browser QA scratch profiles (`**/chrome-profile*/`, `**/browser-profile*/`) — **Do not recursive-delete them as hygiene**. Gitignore and leave, or `Move-Item -LiteralPath` to scratch outside the repo. Never `robocopy /MIR`.
+
+## Local artifact location
+
+Use gitignored paths only:
+
+```text
+artifacts/          # dumps, tiles, photos, excel
+uploads/            # local MinIO-equivalent
+```
+
+## Agent / lead-dev checklist
+
+When writing evidence or Agents Logs:
+
+1. Record **byte length + SHA-256** of any dump — do **not** attach the file.
+2. Point regenerate instructions at import script + fixture SHA.
+3. Before `git add`, run a size check if unsure (`> 50 MiB` = do not stage; `> 100 MiB` = hard fail).
+4. If a dump appears under evidence/logs, **delete it**, add a pointer note, and keep `.gitignore` coverage.
