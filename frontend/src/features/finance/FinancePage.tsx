@@ -34,6 +34,7 @@ export default function FinancePage(): ReactElement {
         icon={<Droplets className="h-5 w-5" aria-hidden="true" />}
         subtitle="TMĐT → Giải ngân → Còn lại"
         position={{ colStart: 1, colSpan: 4, rowStart: 2, rowSpan: 3 }}
+        widgetId="finance-top-chart"
         isLoading={isLoading}
         error={error ?? null}
         isStale={isStale}
@@ -46,6 +47,7 @@ export default function FinancePage(): ReactElement {
         icon={<ChartLine className="h-5 w-5" aria-hidden="true" />}
         subtitle="KH năm vs Thực tế vs Dự báo"
         position={{ colStart: 5, colSpan: 4, rowStart: 2, rowSpan: 3 }}
+        widgetId="finance-top-chart"
         isLoading={isLoading}
         error={error ?? null}
         isStale={isStale}
@@ -58,6 +60,7 @@ export default function FinancePage(): ReactElement {
         icon={<Puzzle className="h-5 w-5" aria-hidden="true" />}
         subtitle="Treemap"
         position={{ colStart: 9, colSpan: 4, rowStart: 2, rowSpan: 3 }}
+        widgetId="finance-top-chart"
         isLoading={isLoading}
         error={error ?? null}
         isStale={isStale}

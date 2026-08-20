@@ -14,10 +14,9 @@ export interface IGridLayoutConfig {
 }
 
 /**
- * Cấu hình lưới dashboard cho màn hình 1920×1080.
+ * Cấu hình lưới dashboard.
  *
- * Lưu ý: `rowHeight` là "xấp xỉ" theo đặc tả UI. Thực tế track row sử dụng `fr`
- * để đảm bảo không tạo thanh cuộn ở mọi viewport.
+ * Chiều cao hàng thực tế: CSS `--dash-grid-rows` (minmax, cho phép trang cuộn).
  */
 export const GRID_LAYOUT: IGridLayoutConfig = {
   headerHeight: 72,

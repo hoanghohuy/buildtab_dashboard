@@ -33,6 +33,8 @@ export interface IWidgetContainerProps {
   onRetry?: () => void;
   /** Nội dung widget */
   children?: ReactNode;
+  /** Id để CSS tablet nhắm widget cụ thể */
+  widgetId?: string;
 }
 
 /**
@@ -53,6 +55,7 @@ export function WidgetContainer({
   isStale = false,
   onRetry,
   children,
+  widgetId,
 }: IWidgetContainerProps): ReactElement {
   const { t } = useTranslation('common');
 
@@ -67,6 +70,7 @@ export function WidgetContainer({
       data-grid-col-span={position.colSpan}
       data-grid-row-start={position.rowStart}
       data-grid-row-span={position.rowSpan}
+      data-widget={widgetId}
     >
       <section className="flex h-full w-full flex-col overflow-hidden">
         <header className="flex shrink-0 items-start justify-between px-4 pt-2.5 pb-1.5">

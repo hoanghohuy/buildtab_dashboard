@@ -28,26 +28,25 @@ function getPositionFromChild(child: ReactElement): IGridPosition | null {
 }
 
 /**
- * Lưới dashboard 12 cột × 9 hàng (TV 1920×1080).
- * - Không tạo thanh cuộn: wrapper dùng `overflow-hidden`, track dùng `fr`.
- * - Vị trí widget dùng inline style (`gridColumn`, `gridRow`).
+ * Lưới dashboard 12 cột × 9 hàng.
+ * Màn lớn (≥1367px): hàng `fr` khít 100vh. iPad: cao theo nội dung, cuộn dọc.
  */
 export function DashboardGrid({ children }: IDashboardGridProps): ReactElement {
   return (
     <div
-      className="h-full w-full overflow-hidden"
+      className="dashboard-grid-wrap w-full"
       style={{
         padding: GRID_LAYOUT.outsidePadding,
       }}
     >
       <div
-        className="h-full w-full overflow-hidden"
+        className="dashboard-grid-track w-full"
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${GRID_LAYOUT.cols}, minmax(0, 1fr))`,
-          gridTemplateRows: `repeat(${GRID_LAYOUT.rows}, minmax(0, 1fr))`,
+          gridTemplateRows: 'var(--dash-grid-rows)',
           gap: GRID_LAYOUT.gutter,
-          alignContent: 'stretch',
+          alignContent: 'var(--dash-grid-align)',
           justifyContent: 'stretch',
         }}
       >
@@ -58,9 +57,9 @@ export function DashboardGrid({ children }: IDashboardGridProps): ReactElement {
 
           return (
             <div
-              // Grid item wrapper (child bên trong không cần gridColumn/gridRow)
               key={idx}
-              className="min-h-0 min-w-0 overflow-hidden"
+              className="dashboard-grid-item min-h-0 min-w-0 overflow-hidden"
+              data-row-span={position.rowSpan}
               style={{
                 gridColumn: `${position.colStart} / span ${position.colSpan}`,
                 gridRow: `${position.rowStart} / span ${position.rowSpan}`,

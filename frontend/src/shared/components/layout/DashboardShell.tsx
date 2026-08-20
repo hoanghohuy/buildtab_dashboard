@@ -185,7 +185,7 @@ export function DashboardShell({ children }: IDashboardShellProps): ReactElement
   }, [isKioskMode]);
 
   return (
-    <div ref={rootRef} className="kiosk-root flex h-screen w-full flex-col overflow-hidden">
+    <div ref={rootRef} className="dashboard-shell kiosk-root flex min-h-dvh w-full flex-col">
       <header
         className="flex h-[72px] w-full items-center justify-between gap-6 border-b border-white/[0.08] bg-[rgba(7,11,20,0.55)] px-6 backdrop-blur-glass"
         style={{ height: GRID_LAYOUT.headerHeight }}
@@ -224,7 +224,7 @@ export function DashboardShell({ children }: IDashboardShellProps): ReactElement
         </div>
       </header>
 
-      <div className="min-h-0 flex-1">
+      <div className="dashboard-shell-body flex-1">
         <DashboardGrid>
           <KpiStrip position={KPI_STRIP_POSITION} kpis={kpis} />
           {children}

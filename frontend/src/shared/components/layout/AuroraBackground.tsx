@@ -10,7 +10,7 @@ export interface IAuroraBackgroundProps {
  */
 export const AuroraBackground = memo(
   ({ className }: IAuroraBackgroundProps) => {
-    const combinedClassName = ['absolute inset-0 pointer-events-none z-0', className]
+            const combinedClassName = ['fixed inset-0 pointer-events-none z-0', className]
       .filter(Boolean)
       .join(' ')
 

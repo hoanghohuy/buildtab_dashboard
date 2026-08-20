@@ -12,7 +12,7 @@ const App = (): ReactElement => {
   return (
     <Provider store={store}>
       <SwrProvider>
-        <div className="relative min-h-screen w-full overflow-hidden bg-[var(--bg-base)] text-[var(--text-primary)]">
+        <div className="relative min-h-screen w-full overflow-x-hidden bg-[var(--bg-base)] text-[var(--text-primary)]">
           <AuroraBackground />
           <div className="relative z-10">
             <BrowserRouter>
