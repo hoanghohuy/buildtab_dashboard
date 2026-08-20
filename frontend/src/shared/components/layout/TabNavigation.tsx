@@ -49,7 +49,6 @@ export function TabNavigation({ progressPercent, onUserInteraction, onSelectTab 
 
   const dispatch = useAppDispatch();
   const activeTabFromKiosk = useAppSelector((s) => s.kiosk.activeTab);
-  const isKioskMode = useAppSelector((s) => s.kiosk.isKioskMode);
 
   const activeTabFromRoute = getTabKeyFromPath(window.location.pathname);
   const activeTab = activeTabFromKiosk ?? activeTabFromRoute;
@@ -87,7 +86,7 @@ export function TabNavigation({ progressPercent, onUserInteraction, onSelectTab 
         })}
       </nav>
 
-      {isKioskMode ? (
+      {typeof progressPercent === 'number' ? (
         <div className="absolute bottom-[-8px] left-0 right-0 h-[2px] overflow-hidden rounded-full bg-white/10">
           <div
             className="h-full rounded-full bg-[var(--accent)] transition-[width] duration-200 ease-linear"

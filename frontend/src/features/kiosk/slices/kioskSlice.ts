@@ -1,5 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
+import { KIOSK_AUTO_ROTATE } from '@/features/kiosk/constants/KIOSK_CONFIG';
+
 /** 4 tab chính của dashboard */
 export type TDashboardTab = 'overview' | 'orgChart' | 'finance' | 'contractorHealth';
 
@@ -16,7 +18,7 @@ export interface IKioskState {
 
 const initialState: IKioskState = {
   isKioskMode: true,
-  isRotating: true,
+  isRotating: KIOSK_AUTO_ROTATE,
   activeTab: 'overview',
   rotationDurations: {
     overview: 60,

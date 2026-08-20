@@ -1,176 +1,234 @@
-import type { ReactElement } from 'react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import type { ReactElement } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-import * as maplibregl from 'maplibre-gl'
-import 'maplibre-gl/dist/maplibre-gl.css'
+import * as maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
 
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from "react-i18next";
 
-import type { TStatusLevel } from '@/shared/types/common.types'
-import { getStatusColor } from '@/shared/utils/getStatusColor'
-import { formatCurrency } from '@/shared/utils/formatCurrency'
-import { formatDate } from '@/shared/utils/formatDate'
+import type { TStatusLevel } from "@/shared/types/common.types";
+import { getStatusColor } from "@/shared/utils/getStatusColor";
+import { formatCurrency } from "@/shared/utils/formatCurrency";
+import { formatDate } from "@/shared/utils/formatDate";
 
-import { useAppSelector } from '@/app/hooks'
+import { useAppSelector } from "@/app/hooks";
 
-import type { IProjectInfo } from '@/features/overview/types/overview.types'
-import type { IApiResponse } from '@/shared/types/api.types'
+import type { IProjectInfo } from "@/features/overview/types/overview.types";
+import type { IApiResponse } from "@/shared/types/api.types";
 
-import overviewMockRaw from '@/mocks/overview.json'
-import alignmentMockRaw from '@/mocks/gis/alignment.json'
+import {
+  getGisSceneConfig,
+  isGisSceneConfigured,
+} from "@/features/overview/constants/GIS_CONFIG";
+import {
+  createArcGisSceneView,
+  destroyArcGisSceneView,
+} from "@/features/overview/services/ArcGisSceneService";
 
-type TMapRenderMode = 'fallback' | 'map'
+import overviewMockRaw from "@/mocks/overview.json";
+import alignmentMockRaw from "@/mocks/gis/alignment.json";
 
-type TAlignmentSpiStatus = TStatusLevel
+import type SceneView from "@arcgis/core/views/SceneView.js";
+
+type TMapRenderMode = "fallback" | "map";
+
+type TAlignmentSpiStatus = TStatusLevel;
 
 interface IAlignmentFeatureProperties {
-  segmentId: string
-  kmFrom: number
-  kmTo: number
-  spi: number
-  spiStatus: TAlignmentSpiStatus
+  segmentId: string;
+  kmFrom: number;
+  kmTo: number;
+  spi: number;
+  spiStatus: TAlignmentSpiStatus;
 }
 
 type TAlignmentFeatureCollection = GeoJSON.FeatureCollection<
   GeoJSON.LineString,
   IAlignmentFeatureProperties
->
+>;
 
 const MAP_DARK_STYLE_URL =
   // Voyager style có độ tương phản đường/label tốt hơn dark-matter cho UI TV.
-  'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json'
+  "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json";
 
-const MAP_PADDING_PX = 24
+const MAP_PADDING_PX = 24;
 
-const BACKGROUND_RASTER_SOURCE_ID = 'background-osm-raster'
-const BACKGROUND_RASTER_LAYER_ID = 'background-osm-raster-layer'
-const BACKGROUND_RASTER_TILE_URL_TEMPLATE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-const BACKGROUND_RASTER_OPACITY = 0.78
+const BACKGROUND_RASTER_SOURCE_ID = "background-osm-raster";
+const BACKGROUND_RASTER_LAYER_ID = "background-osm-raster-layer";
+const BACKGROUND_RASTER_TILE_URL_TEMPLATE =
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+const BACKGROUND_RASTER_OPACITY = 0.78;
 
-const FALLBACK_STATIC_MAP_BASE_URL = 'https://staticmap.openstreetmap.de/staticmap.php'
+const FALLBACK_STATIC_MAP_BASE_URL =
+  "https://staticmap.openstreetmap.de/staticmap.php";
 
-const TERRAIN_DEM_SOURCE_ID = 'terrain-dem'
-const TERRAIN_DEM_TILE_SIZE = 256
+const TERRAIN_DEM_SOURCE_ID = "terrain-dem";
+const TERRAIN_DEM_TILE_SIZE = 256;
 const TERRAIN_DEM_TILE_URL_TEMPLATE =
-  'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'
-const TERRAIN_EXAGGERATION = 1.7
-const TERRAIN_HILLSHADE_LAYER_ID = 'terrain-hillshade'
-const TERRAIN_PITCH_DEG = 52
-const TERRAIN_BEARING_DEG = -25
+  "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png";
+const TERRAIN_EXAGGERATION = 1.7;
+const TERRAIN_HILLSHADE_LAYER_ID = "terrain-hillshade";
+const TERRAIN_PITCH_DEG = 52;
+const TERRAIN_BEARING_DEG = -25;
 
 export interface IProjectMapWidgetProps {
   /**
    * Kiosk mode = TV mode: tắt pan/zoom để tránh thao tác.
    * Nếu không truyền prop, component sẽ ưu tiên đọc từ `kioskSlice.isKioskMode`.
    */
-  isKiosk?: boolean
+  isKiosk?: boolean;
 }
 
 function isWebGLAvailable(): boolean {
   try {
-    const canvas = document.createElement('canvas')
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl')
-    return gl !== null
+    const canvas = document.createElement("canvas");
+    const gl =
+      canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    return gl !== null;
   } catch {
-    return false
+    return false;
   }
 }
 
 /**
- * Widget bản đồ tuyến (ProjectMapWidget) — MVP mock-first.
+ * Widget bản đồ tuyến (ProjectMapWidget).
  *
- * - MapLibre: dark basemap + alignment segments colored theo SPI.
- * - Fallback: SVG polyline + markers nếu MapLibre/WebGL fail.
- * - Overlay: "Thông tin dự án" glass nhẹ đặt góc dưới-trái.
+ * - Có `sceneId` + portal trong GIS_CONFIG / env → ArcGIS SceneView (Web Scene 3D).
+ * - Không cấu hình GIS → MapLibre (alignment mock) hoặc SVG fallback.
+ * - Overlay: "Thông tin dự án" góc dưới-trái.
  */
-export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElement {
-  const { t } = useTranslation('overview')
+export function ProjectMapWidget({
+  isKiosk,
+}: IProjectMapWidgetProps): ReactElement {
+  const { t } = useTranslation("overview");
 
-  const kioskFromStore = useAppSelector((s) => s.kiosk.isKioskMode)
-  const isKioskMode = typeof isKiosk === 'boolean' ? isKiosk : kioskFromStore
+  const kioskFromStore = useAppSelector((s) => s.kiosk.isKioskMode);
+  const isKioskMode = typeof isKiosk === "boolean" ? isKiosk : kioskFromStore;
 
-  const overviewMock = useMemo(() => overviewMockRaw as IApiResponse<{ projectInfo: IProjectInfo }>, [])
-  const projectInfo = overviewMock.data.projectInfo
+  const overviewMock = useMemo(
+    () => overviewMockRaw as IApiResponse<{ projectInfo: IProjectInfo }>,
+    [],
+  );
+  const projectInfo = overviewMock.data.projectInfo;
 
   const alignmentGeoJson = useMemo(
     () => alignmentMockRaw as TAlignmentFeatureCollection,
     [],
-  )
+  );
 
   const alignmentGeoBbox = useMemo(() => {
-    let minLon = Number.POSITIVE_INFINITY
-    let maxLon = Number.NEGATIVE_INFINITY
-    let minLat = Number.POSITIVE_INFINITY
-    let maxLat = Number.NEGATIVE_INFINITY
+    let minLon = Number.POSITIVE_INFINITY;
+    let maxLon = Number.NEGATIVE_INFINITY;
+    let minLat = Number.POSITIVE_INFINITY;
+    let maxLat = Number.NEGATIVE_INFINITY;
 
     for (const feature of alignmentGeoJson.features) {
-      const coords = feature.geometry.coordinates
+      const coords = feature.geometry.coordinates;
       for (const pos of coords) {
-        const lon = pos[0]
-        const lat = pos[1]
-        minLon = Math.min(minLon, lon)
-        maxLon = Math.max(maxLon, lon)
-        minLat = Math.min(minLat, lat)
-        maxLat = Math.max(maxLat, lat)
+        const lon = pos[0];
+        const lat = pos[1];
+        minLon = Math.min(minLon, lon);
+        maxLon = Math.max(maxLon, lon);
+        minLat = Math.min(minLat, lat);
+        maxLat = Math.max(maxLat, lat);
       }
     }
 
     if (!Number.isFinite(minLon) || !Number.isFinite(maxLon)) {
-      return { minLon: 0, maxLon: 1, minLat: 0, maxLat: 1 }
+      return { minLon: 0, maxLon: 1, minLat: 0, maxLat: 1 };
     }
 
-    return { minLon, maxLon, minLat, maxLat }
-  }, [alignmentGeoJson])
+    return { minLon, maxLon, minLat, maxLat };
+  }, [alignmentGeoJson]);
 
   const svgTransform = useMemo(() => {
-    const width = 1000
-    const height = 560
+    const width = 1000;
+    const height = 560;
 
-    const lonSpan = Math.max(1e-9, alignmentGeoBbox.maxLon - alignmentGeoBbox.minLon)
-    const latSpan = Math.max(1e-9, alignmentGeoBbox.maxLat - alignmentGeoBbox.minLat)
+    const lonSpan = Math.max(
+      1e-9,
+      alignmentGeoBbox.maxLon - alignmentGeoBbox.minLon,
+    );
+    const latSpan = Math.max(
+      1e-9,
+      alignmentGeoBbox.maxLat - alignmentGeoBbox.minLat,
+    );
 
     const toSvg = (lon: number, lat: number): { x: number; y: number } => {
-      const x = ((lon - alignmentGeoBbox.minLon) / lonSpan) * width
+      const x = ((lon - alignmentGeoBbox.minLon) / lonSpan) * width;
       // SVG y tăng xuống dưới, nên đảo trục lat
-      const y = (1 - (lat - alignmentGeoBbox.minLat) / latSpan) * height
-      return { x, y }
-    }
+      const y = (1 - (lat - alignmentGeoBbox.minLat) / latSpan) * height;
+      return { x, y };
+    };
 
-    return { width, height, toSvg }
-  }, [alignmentGeoBbox])
+    return { width, height, toSvg };
+  }, [alignmentGeoBbox]);
 
-  const [mapRenderMode, setMapRenderMode] = useState<TMapRenderMode>('fallback')
-  const mapContainerRef = useRef<HTMLDivElement | null>(null)
-  const mapRef = useRef<maplibregl.Map | null>(null)
+  const gisConfig = useMemo(() => getGisSceneConfig(), []);
+  const useArcGisScene = isGisSceneConfigured(gisConfig);
+
+  const [mapRenderMode, setMapRenderMode] =
+    useState<TMapRenderMode>("fallback");
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<maplibregl.Map | null>(null);
+  const sceneViewRef = useRef<SceneView | null>(null);
 
   useEffect(() => {
-    const el = mapContainerRef.current
-    if (!el) return
+    const el = mapContainerRef.current;
+    if (!el || !useArcGisScene) return undefined;
 
-    let isAlive = true
+    let isAlive = true;
+    setMapRenderMode("fallback");
+
+    void createArcGisSceneView(el, gisConfig, { interactive: true })
+      .then((view) => {
+        if (!isAlive) {
+          destroyArcGisSceneView(view);
+          return;
+        }
+        sceneViewRef.current = view;
+        setMapRenderMode("map");
+      })
+      .catch(() => {
+        if (isAlive) setMapRenderMode("fallback");
+      });
+
+    return () => {
+      isAlive = false;
+      destroyArcGisSceneView(sceneViewRef.current);
+      sceneViewRef.current = null;
+    };
+  }, [gisConfig, isKioskMode, useArcGisScene]);
+
+  useEffect(() => {
+    const el = mapContainerRef.current;
+    if (!el) return;
+    if (useArcGisScene) return undefined;
+
+    let isAlive = true;
 
     // Cleanup map cũ nếu kiosk mode thay đổi.
     if (mapRef.current) {
       try {
-        mapRef.current.remove()
+        mapRef.current.remove();
       } catch {
         // ignore cleanup errors
       } finally {
-        mapRef.current = null
+        mapRef.current = null;
       }
     }
 
     try {
       if (!isWebGLAvailable()) {
-        setMapRenderMode('fallback')
-        return
+        setMapRenderMode("fallback");
+        return;
       }
 
-      let didSetMapMode = false
+      let didSetMapMode = false;
 
-      const { minLon, maxLon, minLat, maxLat } = alignmentGeoBbox
-      const centerLon = (minLon + maxLon) / 2
-      const centerLat = (minLat + maxLat) / 2
+      const { minLon, maxLon, minLat, maxLat } = alignmentGeoBbox;
+      const centerLon = (minLon + maxLon) / 2;
+      const centerLat = (minLat + maxLat) / 2;
 
       const map = new maplibregl.Map({
         container: el,
@@ -180,7 +238,7 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
         pitch: TERRAIN_PITCH_DEG,
         bearing: TERRAIN_BEARING_DEG,
         attributionControl: false,
-        logoPosition: 'bottom-right',
+        logoPosition: "bottom-right",
         interactive: !isKioskMode,
         dragPan: !isKioskMode,
         scrollZoom: !isKioskMode,
@@ -188,37 +246,37 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
         dragRotate: !isKioskMode,
         keyboard: !isKioskMode,
         doubleClickZoom: !isKioskMode,
-      })
+      });
 
-      mapRef.current = map
+      mapRef.current = map;
 
-      map.on('error', () => {
-        if (!isAlive) return
+      map.on("error", () => {
+        if (!isAlive) return;
         // Không ép fallback nếu map đã kịp render xong (tile/DEM có thể lỗi lẻ tẻ vẫn chấp nhận hiển thị nền).
-        if (!didSetMapMode) setMapRenderMode('fallback')
-      })
+        if (!didSetMapMode) setMapRenderMode("fallback");
+      });
 
-      map.on('load', () => {
-        if (!isAlive) return
+      map.on("load", () => {
+        if (!isAlive) return;
 
         try {
           // Nhúng bản đồ nền (OSM tiles) để nhìn "có địa hình/đường đi" phía dưới alignment.
           // Route/marker được thêm sau đó nên sẽ luôn nằm ở lớp phía trên.
           try {
             map.addSource(BACKGROUND_RASTER_SOURCE_ID, {
-              type: 'raster',
+              type: "raster",
               tiles: [BACKGROUND_RASTER_TILE_URL_TEMPLATE],
               tileSize: 256,
-            })
+            });
 
             map.addLayer({
               id: BACKGROUND_RASTER_LAYER_ID,
-              type: 'raster',
+              type: "raster",
               source: BACKGROUND_RASTER_SOURCE_ID,
               paint: {
-                'raster-opacity': BACKGROUND_RASTER_OPACITY,
+                "raster-opacity": BACKGROUND_RASTER_OPACITY,
               },
-            })
+            });
           } catch {
             // ignore background errors (vẫn render được alignment)
           }
@@ -227,93 +285,104 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
           // Nếu DEM/terrain bị lỗi, vẫn render được alignment (2D) để widget không chết.
           try {
             map.addSource(TERRAIN_DEM_SOURCE_ID, {
-              type: 'raster-dem',
+              type: "raster-dem",
               tiles: [TERRAIN_DEM_TILE_URL_TEMPLATE],
               tileSize: TERRAIN_DEM_TILE_SIZE,
-              encoding: 'terrarium',
-            })
+              encoding: "terrarium",
+            });
 
             map.setTerrain({
               source: TERRAIN_DEM_SOURCE_ID,
               exaggeration: TERRAIN_EXAGGERATION,
-            })
+            });
 
             map.addLayer({
               id: TERRAIN_HILLSHADE_LAYER_ID,
-              type: 'hillshade',
+              type: "hillshade",
               source: TERRAIN_DEM_SOURCE_ID,
               paint: {
-                'hillshade-exaggeration': 1,
+                "hillshade-exaggeration": 1,
                 // Giảm độ đậm để bản đồ nền (roads/labels) vẫn nhìn thấy phía dưới.
-                'hillshade-shadow-color': 'rgba(0,0,0,0.35)',
-                'hillshade-highlight-color': 'rgba(255,255,255,0.10)',
-                'hillshade-accent-color': 'rgba(255,255,255,0.08)',
+                "hillshade-shadow-color": "rgba(0,0,0,0.35)",
+                "hillshade-highlight-color": "rgba(255,255,255,0.10)",
+                "hillshade-accent-color": "rgba(255,255,255,0.08)",
               },
-            })
+            });
           } catch {
             // ignore terrain errors, still try to render alignment
           }
 
-          map.addSource('alignment-route', {
-            type: 'geojson',
+          map.addSource("alignment-route", {
+            type: "geojson",
             data: alignmentGeoJson,
-          })
+          });
 
           map.addLayer({
-            id: 'alignment-route-line',
-            type: 'line',
-            source: 'alignment-route',
+            id: "alignment-route-line",
+            type: "line",
+            source: "alignment-route",
             layout: {
-              'line-cap': 'round',
-              'line-join': 'round',
+              "line-cap": "round",
+              "line-join": "round",
             },
             paint: {
-              'line-color': 'rgba(255,255,255,0.40)',
-              'line-width': 6,
-              'line-opacity': 0.85,
+              "line-color": "rgba(255,255,255,0.40)",
+              "line-width": 6,
+              "line-opacity": 0.85,
             },
-          })
+          });
 
-          const statuses: TStatusLevel[] = ['good', 'normal', 'warning', 'danger', 'critical']
-          const statusColors: Record<TStatusLevel, ReturnType<typeof getStatusColor>> =
-            statuses.reduce((acc, status) => {
-              acc[status] = getStatusColor(status)
-              return acc
-            }, {} as Record<TStatusLevel, ReturnType<typeof getStatusColor>>)
+          const statuses: TStatusLevel[] = [
+            "good",
+            "normal",
+            "warning",
+            "danger",
+            "critical",
+          ];
+          const statusColors: Record<
+            TStatusLevel,
+            ReturnType<typeof getStatusColor>
+          > = statuses.reduce(
+            (acc, status) => {
+              acc[status] = getStatusColor(status);
+              return acc;
+            },
+            {} as Record<TStatusLevel, ReturnType<typeof getStatusColor>>,
+          );
 
           for (const status of statuses) {
             const statusFeatures = alignmentGeoJson.features.filter(
               (f) => f.properties.spiStatus === status,
-            )
+            );
 
-            if (statusFeatures.length === 0) continue
+            if (statusFeatures.length === 0) continue;
 
             const statusCollection: TAlignmentFeatureCollection = {
-              type: 'FeatureCollection',
+              type: "FeatureCollection",
               features: statusFeatures,
-            }
+            };
 
-            const sourceId = `alignment-${status}`
+            const sourceId = `alignment-${status}`;
 
             map.addSource(sourceId, {
-              type: 'geojson',
+              type: "geojson",
               data: statusCollection,
-            })
+            });
 
             map.addLayer({
               id: `alignment-${status}-line`,
-              type: 'line',
+              type: "line",
               source: sourceId,
               layout: {
-                'line-cap': 'round',
-                'line-join': 'round',
+                "line-cap": "round",
+                "line-join": "round",
               },
               paint: {
-                'line-width': 10,
-                'line-opacity': 0.95,
-                'line-color': statusColors[status].text,
+                "line-width": 10,
+                "line-opacity": 0.95,
+                "line-color": statusColors[status].text,
               },
-            })
+            });
           }
 
           map.fitBounds(
@@ -326,11 +395,14 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
               duration: 0,
               maxZoom: 13,
             },
-          )
+          );
 
           // Đảm bảo camera giữ pitch để nhìn rõ địa hình 3D.
           try {
-            map.jumpTo({ pitch: TERRAIN_PITCH_DEG, bearing: TERRAIN_BEARING_DEG })
+            map.jumpTo({
+              pitch: TERRAIN_PITCH_DEG,
+              bearing: TERRAIN_BEARING_DEG,
+            });
           } catch {
             // ignore
           }
@@ -338,69 +410,70 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
           if (isKioskMode) {
             // Thêm lần nữa để chắc chắn disable pan/zoom ở mọi phiên bản.
             try {
-              map.dragPan.disable()
-              map.scrollZoom.disable()
-              map.boxZoom.disable()
-              map.dragRotate.disable()
-              map.keyboard.disable()
-              map.doubleClickZoom.disable()
-              map.touchZoomRotate.disableRotation()
+              map.dragPan.disable();
+              map.scrollZoom.disable();
+              map.boxZoom.disable();
+              map.dragRotate.disable();
+              map.keyboard.disable();
+              map.doubleClickZoom.disable();
+              map.touchZoomRotate.disableRotation();
             } catch {
               // ignore - một số methods có thể không tồn tại tuỳ build
             }
           }
 
-          didSetMapMode = true
-          setMapRenderMode('map')
+          didSetMapMode = true;
+          setMapRenderMode("map");
         } catch {
           // Nếu add layer fail (style/source), vẫn đảm bảo demo bằng fallback.
-          if (!isAlive) return
-          setMapRenderMode('fallback')
+          if (!isAlive) return;
+          setMapRenderMode("fallback");
         }
-      })
+      });
     } catch {
-      setMapRenderMode('fallback')
+      setMapRenderMode("fallback");
     }
 
     return () => {
-      isAlive = false
+      isAlive = false;
       if (mapRef.current) {
         try {
-          mapRef.current.remove()
+          mapRef.current.remove();
         } catch {
           // ignore
         } finally {
-          mapRef.current = null
+          mapRef.current = null;
         }
       }
-    }
-  }, [alignmentGeoBbox, alignmentGeoJson, isKioskMode])
+    };
+  }, [alignmentGeoBbox, alignmentGeoJson, isKioskMode, useArcGisScene]);
 
   const svgAlignment = useMemo(() => {
-    const { width, height, toSvg } = svgTransform
+    const { width, height, toSvg } = svgTransform;
 
     if (alignmentGeoJson.features.length === 0) {
-      return { width, height, basePolylines: [], markerPoints: [] }
+      return { width, height, basePolylines: [], markerPoints: [] };
     }
 
     const basePolylines = alignmentGeoJson.features.map((feature) => {
       const points = feature.geometry.coordinates.map((pos) => {
-        const x = toSvg(pos[0], pos[1]).x
-        const y = toSvg(pos[0], pos[1]).y
-        return `${x},${y}`
-      })
+        const x = toSvg(pos[0], pos[1]).x;
+        const y = toSvg(pos[0], pos[1]).y;
+        return `${x},${y}`;
+      });
 
-      const firstPos = feature.geometry.coordinates[0]
-      const lastPos = feature.geometry.coordinates[feature.geometry.coordinates.length - 1]
+      const firstPos = feature.geometry.coordinates[0];
+      const lastPos =
+        feature.geometry.coordinates[feature.geometry.coordinates.length - 1];
 
       return {
         segmentId: feature.properties.segmentId,
         spiStatus: feature.properties.spiStatus,
-        points: points.join(' '),
+        points: points.join(" "),
         start: toSvg(firstPos[0], firstPos[1]),
         end: toSvg(lastPos[0], lastPos[1]),
-      }
-    })
+      };
+    });
 
     const markerPoints = basePolylines.flatMap((poly) => [
       {
@@ -415,19 +488,19 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
         y: poly.end.y,
         status: poly.spiStatus,
       },
-    ])
+    ]);
 
-    return { width, height, basePolylines, markerPoints }
-  }, [alignmentGeoJson, svgTransform])
+    return { width, height, basePolylines, markerPoints };
+  }, [alignmentGeoJson, svgTransform]);
 
   const overlayStats = useMemo(() => {
-    const lengthText = `${projectInfo.length.toFixed(1).replace('.', ',')} km`
-    const lanesText = `${projectInfo.lanes} làn xe`
-    const investmentText = `${formatCurrency(projectInfo.totalInvestment, 'billion')} đ`
-    const startText = formatDate(projectInfo.startDate)
-    const endText = formatDate(projectInfo.plannedEndDate)
-    const progressText = `${projectInfo.progressPercent.toFixed(1).replace('.', ',')}%`
-    const remainingText = `D−${projectInfo.daysRemaining}`
+    const lengthText = `${projectInfo.length.toFixed(1).replace(".", ",")} km`;
+    const lanesText = `${projectInfo.lanes} làn xe`;
+    const investmentText = `${formatCurrency(projectInfo.totalInvestment, "billion")} đ`;
+    const startText = formatDate(projectInfo.startDate);
+    const endText = formatDate(projectInfo.plannedEndDate);
+    const progressText = `${projectInfo.progressPercent.toFixed(1).replace(".", ",")}%`;
+    const remainingText = `D−${projectInfo.daysRemaining}`;
 
     return {
       lengthText,
@@ -439,37 +512,37 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
       remainingText,
       ownerText: projectInfo.owner,
       fundingSourceText: projectInfo.fundingSource,
-    }
-  }, [projectInfo])
+    };
+  }, [projectInfo]);
 
-  const progressPercent = Math.max(0, Math.min(100, projectInfo.progressPercent))
+  const progressPercent = Math.max(
+    0,
+    Math.min(100, projectInfo.progressPercent),
+  );
 
   const fallbackStaticMapUrl = useMemo(() => {
-    const { minLon, maxLon, minLat, maxLat } = alignmentGeoBbox
-    const width = svgAlignment.width
-    const height = svgAlignment.height
+    const { minLon, maxLon, minLat, maxLat } = alignmentGeoBbox;
+    const width = svgAlignment.width;
+    const height = svgAlignment.height;
 
     const params = new URLSearchParams({
       bbox: `${minLon},${minLat},${maxLon},${maxLat}`,
       size: `${width}x${height}`,
-      scale: '1',
-      maptype: 'mapnik',
-      format: 'png',
-    })
+      scale: "1",
+      maptype: "mapnik",
+      format: "png",
+    });
 
-    return `${FALLBACK_STATIC_MAP_BASE_URL}?${params.toString()}`
-  }, [alignmentGeoBbox, svgAlignment.height, svgAlignment.width])
+    return `${FALLBACK_STATIC_MAP_BASE_URL}?${params.toString()}`;
+  }, [alignmentGeoBbox, svgAlignment.height, svgAlignment.width]);
 
   return (
     <div className="relative h-full w-full overflow-hidden">
       {/* Map container */}
-      <div
-        ref={mapContainerRef}
-        className="absolute inset-0"
-      />
+      <div ref={mapContainerRef} className="absolute inset-0" />
 
       {/* Fallback */}
-      {mapRenderMode !== 'map' ? (
+      {mapRenderMode !== "map" ? (
         <>
           <img
             src={fallbackStaticMapUrl}
@@ -510,7 +583,7 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
 
             {/* Progress segments */}
             {svgAlignment.basePolylines.map((poly) => {
-              const statusColor = getStatusColor(poly.spiStatus)
+              const statusColor = getStatusColor(poly.spiStatus);
               return (
                 <polyline
                   key={`${poly.segmentId}-progress`}
@@ -523,12 +596,12 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
                   opacity={0.95}
                   filter="url(#route-glow)"
                 />
-              )
+              );
             })}
 
             {/* Markers */}
             {svgAlignment.markerPoints.map((m) => {
-              const statusColor = getStatusColor(m.status)
+              const statusColor = getStatusColor(m.status);
               return (
                 <g key={m.key}>
                   <circle
@@ -538,7 +611,13 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
                     fill={statusColor.text}
                     opacity={0.18}
                   />
-                  <circle cx={m.x} cy={m.y} r={5} fill={statusColor.text} opacity={0.9} />
+                  <circle
+                    cx={m.x}
+                    cy={m.y}
+                    r={5}
+                    fill={statusColor.text}
+                    opacity={0.9}
+                  />
                   <circle
                     cx={m.x}
                     cy={m.y}
@@ -549,18 +628,18 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
                     opacity={0.9}
                   />
                 </g>
-              )
+              );
             })}
           </svg>
         </>
       ) : null}
 
       {/* Overlay: Thông tin dự án */}
-      <div className="absolute left-4 bottom-4 z-10 w-[30%] min-w-[260px] max-w-[360px] rounded-2xl border border-white/[0.12] bg-white/[0.05] p-4 shadow-glass">
+      <div className="absolute left-4 bottom-4 z-10 w-[30%] min-w-[260px] max-w-[360px] rounded-2xl border border-white/[0.12] bg-base-elevated p-4 shadow-glass">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <div className="text-caption text-[var(--text-secondary)]">
-              {t('projectInfo.title', 'Thông tin dự án')}
+              {t("projectInfo.title", "Thông tin dự án")}
             </div>
             <div className="truncate text-body-lg font-semibold text-[var(--text-primary)]">
               {projectInfo.name}
@@ -569,27 +648,47 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-caption">
-          <div className="text-[var(--text-secondary)]">{t('projectInfo.totalLength', 'Tổng chiều dài')}</div>
-          <div className="justify-self-end tabular-nums text-[var(--text-primary)]">{overlayStats.lengthText}</div>
+          <div className="text-[var(--text-secondary)]">
+            {t("projectInfo.totalLength", "Tổng chiều dài")}
+          </div>
+          <div className="justify-self-end tabular-nums text-[var(--text-primary)]">
+            {overlayStats.lengthText}
+          </div>
 
           <div className="text-[var(--text-secondary)]">Quy mô</div>
-          <div className="justify-self-end tabular-nums text-[var(--text-primary)]">{overlayStats.lanesText}</div>
+          <div className="justify-self-end tabular-nums text-[var(--text-primary)]">
+            {overlayStats.lanesText}
+          </div>
 
-          <div className="text-[var(--text-secondary)]">{t('projectInfo.totalBudget', 'Tổng mức đầu tư')}</div>
-          <div className="justify-self-end tabular-nums text-[var(--text-primary)]">{overlayStats.investmentText}</div>
+          <div className="text-[var(--text-secondary)]">
+            {t("projectInfo.totalBudget", "Tổng mức đầu tư")}
+          </div>
+          <div className="justify-self-end tabular-nums text-[var(--text-primary)]">
+            {overlayStats.investmentText}
+          </div>
 
           <div className="text-[var(--text-secondary)]">Nguồn vốn</div>
           <div className="col-span-2 truncate justify-self-start text-[var(--text-primary)]">
             {overlayStats.fundingSourceText}
           </div>
 
-          <div className="text-[var(--text-secondary)]">{t('projectInfo.startDate', 'Ngày khởi công')}</div>
-          <div className="justify-self-end tabular-nums text-[var(--text-primary)]">{overlayStats.startText}</div>
+          <div className="text-[var(--text-secondary)]">
+            {t("projectInfo.startDate", "Ngày khởi công")}
+          </div>
+          <div className="justify-self-end tabular-nums text-[var(--text-primary)]">
+            {overlayStats.startText}
+          </div>
 
-          <div className="text-[var(--text-secondary)]">{t('projectInfo.endDate', 'Ngày hoàn thành')}</div>
-          <div className="justify-self-end tabular-nums text-[var(--text-primary)]">{overlayStats.endText}</div>
+          <div className="text-[var(--text-secondary)]">
+            {t("projectInfo.endDate", "Ngày hoàn thành")}
+          </div>
+          <div className="justify-self-end tabular-nums text-[var(--text-primary)]">
+            {overlayStats.endText}
+          </div>
 
-          <div className="text-[var(--text-secondary)]">{t('projectInfo.owner', 'Chủ đầu tư')}</div>
+          <div className="text-[var(--text-secondary)]">
+            {t("projectInfo.owner", "Chủ đầu tư")}
+          </div>
           <div className="col-span-2 truncate justify-self-start text-[var(--text-primary)]">
             {overlayStats.ownerText}
           </div>
@@ -611,6 +710,5 @@ export function ProjectMapWidget({ isKiosk }: IProjectMapWidgetProps): ReactElem
         </div>
       </div>
     </div>
-  )
+  );
 }
-

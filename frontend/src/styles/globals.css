@@ -6,19 +6,19 @@
   --font-sans: 'Be Vietnam Pro', Inter, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  /* Thang chữ TV @1920×1080 — body tối thiểu 18px, KPI ~30px */
-  --text-caption: 18px;
-  --text-caption--line-height: 24px;
-  --text-body-md: 18px;
-  --text-body-md--line-height: 24px;
-  --text-body-lg: 20px;
-  --text-body-lg--line-height: 26px;
-  --text-heading-md: 22px;
-  --text-heading-md--line-height: 28px;
-  --text-display-lg: 30px;
-  --text-display-lg--line-height: 34px;
-  --text-display-xl: 36px;
-  --text-display-xl--line-height: 40px;
+  /* Thang chữ nhỏ hơn để vừa 100vh — padding/gutter giữ nguyên thiết kế */
+  --text-caption: 13px;
+  --text-caption--line-height: 16px;
+  --text-body-md: 14px;
+  --text-body-md--line-height: 18px;
+  --text-body-lg: 15px;
+  --text-body-lg--line-height: 20px;
+  --text-heading-md: 18px;
+  --text-heading-md--line-height: 22px;
+  --text-display-lg: 24px;
+  --text-display-lg--line-height: 28px;
+  --text-display-xl: 28px;
+  --text-display-xl--line-height: 32px;
 }
 
 :root {
@@ -77,8 +77,8 @@ body {
 
 body {
   margin: 0;
-  font-size: 18px;
-  line-height: 1.35;
+  font-size: 14px;
+  line-height: 1.3;
 }
 
 /* Chart container: đảm bảo ECharts fill widget body */
@@ -91,5 +91,13 @@ body {
 /* Kiosk: ẩn con trỏ khi idle (kích hoạt trong useIdleDetection). */
 .kiosk-hide-cursor {
   cursor: none !important;
+}
+
+/* ArcGIS SceneView fill widget */
+.esri-view,
+.esri-view .esri-view-root,
+.esri-view .esri-view-surface {
+  width: 100%;
+  height: 100%;
 }
 

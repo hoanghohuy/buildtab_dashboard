@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@arcgis/core": "^5.1.19",
     "@hookform/resolvers": "^5.9.1",
     "@reactflow/background": "^11.3.14",
     "@reactflow/controls": "^11.2.14",

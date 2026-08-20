@@ -1,7 +1,7 @@
-import type { ReactElement, MouseEvent as ReactMouseEvent } from 'react';
-import { useCallback, useMemo } from 'react';
+import type { ReactElement, MouseEvent as ReactMouseEvent } from "react";
+import { useCallback, useMemo } from "react";
 
-import dagre from 'dagre';
+import dagre from "dagre";
 import {
   Handle,
   ReactFlow,
@@ -10,34 +10,34 @@ import {
   type Edge,
   type Node,
   type NodeProps,
-} from '@reactflow/core';
+} from "@reactflow/core";
 
-import '@reactflow/core/dist/style.css';
+import "@reactflow/core/dist/style.css";
 
 import type {
   IOrgRole,
   IOrgNode,
   IOrgUnitWithContacts,
   IContact,
-} from '../types/orgChart.types';
+} from "../types/orgChart.types";
 
-type TOrgChartNodeKind = 'cluster' | 'role' | 'unit' | 'contact';
+type TOrgChartNodeKind = "cluster" | "role" | "unit" | "contact";
 
 type IClusterFlowNodeData = {
-  kind: 'cluster';
+  kind: "cluster";
   clusterId: string;
   label: string;
   hasAlert: boolean;
 };
 
 type IRoleFlowNodeData = {
-  kind: 'role';
+  kind: "role";
   role: IOrgRole;
   label: string;
 };
 
 type IUnitFlowNodeData = {
-  kind: 'unit';
+  kind: "unit";
   unitId: string;
   label: string;
   healthScore: number;
@@ -45,14 +45,18 @@ type IUnitFlowNodeData = {
 };
 
 type IContactFlowNodeData = {
-  kind: 'contact';
+  kind: "contact";
   contactId: string;
   unitId: string;
   label: string;
   title: string;
 };
 
-type IOrgChartFlowNodeData = IClusterFlowNodeData | IRoleFlowNodeData | IUnitFlowNodeData | IContactFlowNodeData;
+type IOrgChartFlowNodeData =
+  | IClusterFlowNodeData
+  | IRoleFlowNodeData
+  | IUnitFlowNodeData
+  | IContactFlowNodeData;
 
 export interface IOrgTreeCanvasProps {
   selectedClusterNode: IOrgNode | null;
@@ -60,7 +64,10 @@ export interface IOrgTreeCanvasProps {
   onSelectUnit: (unitId: string) => void;
 }
 
-const NODE_SIZE_BY_KIND: Record<TOrgChartNodeKind, { width: number; height: number }> = {
+const NODE_SIZE_BY_KIND: Record<
+  TOrgChartNodeKind,
+  { width: number; height: number }
+> = {
   cluster: { width: 270, height: 78 },
   role: { width: 220, height: 60 },
   unit: { width: 240, height: 66 },
@@ -68,30 +75,35 @@ const NODE_SIZE_BY_KIND: Record<TOrgChartNodeKind, { width: number; height: numb
 };
 
 const ROLE_LABELS_VI: Record<IOrgRole, string> = {
-  investor: 'Chủ đầu tư',
-  supervisor: 'Giám sát',
-  designer: 'Thiết kế',
-  reviewer: 'Thẩm tra',
-  contractor: 'Nhà thầu',
-  landAcquisition: 'Quỹ đất/GPMB',
-  other: 'Khác',
+  investor: "Chủ đầu tư",
+  supervisor: "Giám sát",
+  designer: "Thiết kế",
+  reviewer: "Thẩm tra",
+  contractor: "Nhà thầu",
+  landAcquisition: "Quỹ đất/GPMB",
+  other: "Khác",
 };
 
 function getHealthTone(score: number): { textClass: string; barClass: string } {
-  if (score < 70) return { textClass: 'text-danger', barClass: 'bg-danger' };
-  if (score < 85) return { textClass: 'text-warning', barClass: 'bg-warning' };
-  return { textClass: 'text-accent', barClass: 'bg-accent' };
+  if (score < 70) return { textClass: "text-danger", barClass: "bg-danger" };
+  if (score < 85) return { textClass: "text-warning", barClass: "bg-warning" };
+  return { textClass: "text-accent", barClass: "bg-accent" };
 }
 
-function getUnitHealth(unit: IOrgUnitWithContacts): { score: number; band: string } {
-  const score = typeof unit.healthScore === 'number' ? unit.healthScore : 100;
-  const band = unit.healthBand ?? 'good';
+function getUnitHealth(unit: IOrgUnitWithContacts): {
+  score: number;
+  band: string;
+} {
+  const score = typeof unit.healthScore === "number" ? unit.healthScore : 100;
+  const band = unit.healthBand ?? "good";
   return { score, band };
 }
 
 function getContactLabel(contact: IContact): string {
   // Ưu tiên ngắn gọn cho node; hiển thị full ở detail panel.
-  return contact.name.length > 16 ? `${contact.name.slice(0, 14)}…` : contact.name;
+  return contact.name.length > 16
+    ? `${contact.name.slice(0, 14)}…`
+    : contact.name;
 }
 
 function createNodesAndEdgesForCluster(
@@ -105,10 +117,10 @@ function createNodesAndEdgesForCluster(
 
   nodes.push({
     id: clusterNodeId,
-    type: 'cluster',
+    type: "cluster",
     position: { x: 0, y: 0 },
     data: {
-      kind: 'cluster',
+      kind: "cluster",
       clusterId: selectedClusterNode.cluster.id,
       label: selectedClusterNode.cluster.name,
       hasAlert: selectedClusterNode.cluster.hasAlert,
@@ -127,9 +139,13 @@ function createNodesAndEdgesForCluster(
 
     nodes.push({
       id: roleNodeId,
-      type: 'role',
+      type: "role",
       position: { x: 0, y: 0 },
-      data: { kind: 'role', role: roleGroup.role, label: ROLE_LABELS_VI[roleGroup.role] },
+      data: {
+        kind: "role",
+        role: roleGroup.role,
+        label: ROLE_LABELS_VI[roleGroup.role],
+      },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
       draggable: false,
@@ -140,8 +156,8 @@ function createNodesAndEdgesForCluster(
       id: `e:${clusterNodeId}->${roleNodeId}-${edgeIdx++}`,
       source: clusterNodeId,
       target: roleNodeId,
-      sourceHandle: 'out',
-      targetHandle: 'in',
+      sourceHandle: "out",
+      targetHandle: "in",
       animated: false,
     });
 
@@ -152,11 +168,11 @@ function createNodesAndEdgesForCluster(
 
       nodes.push({
         id: unitNodeId,
-        type: 'unit',
+        type: "unit",
         position: { x: 0, y: 0 },
         selected: isSelected,
         data: {
-          kind: 'unit',
+          kind: "unit",
           unitId: unit.id,
           label: unit.shortName,
           healthScore: score,
@@ -172,8 +188,8 @@ function createNodesAndEdgesForCluster(
         id: `e:${roleNodeId}->${unitNodeId}-${edgeIdx++}`,
         source: roleNodeId,
         target: unitNodeId,
-        sourceHandle: 'out',
-        targetHandle: 'in',
+        sourceHandle: "out",
+        targetHandle: "in",
         animated: false,
       });
 
@@ -181,11 +197,11 @@ function createNodesAndEdgesForCluster(
         const contactNodeId = `contact:${contact.id}`;
         nodes.push({
           id: contactNodeId,
-          type: 'contact',
+          type: "contact",
           position: { x: 0, y: 0 },
-            selected: unit.id === selectedUnitId,
+          selected: unit.id === selectedUnitId,
           data: {
-            kind: 'contact',
+            kind: "contact",
             contactId: contact.id,
             unitId: unit.id,
             label: getContactLabel(contact),
@@ -194,15 +210,15 @@ function createNodesAndEdgesForCluster(
           sourcePosition: Position.Right,
           targetPosition: Position.Left,
           draggable: false,
-            selectable: true,
+          selectable: true,
         });
 
         edges.push({
           id: `e:${unitNodeId}->${contactNodeId}-${edgeIdx++}`,
           source: unitNodeId,
           target: contactNodeId,
-          sourceHandle: 'out',
-          targetHandle: 'in',
+          sourceHandle: "out",
+          targetHandle: "in",
           animated: false,
         });
       }
@@ -219,7 +235,7 @@ function getLayoutedElements(
   const g = new dagre.graphlib.Graph();
   g.setDefaultEdgeLabel(() => ({}));
   g.setGraph({
-    rankdir: 'LR',
+    rankdir: "LR",
     nodesep: 42,
     ranksep: 56,
   });
@@ -250,28 +266,37 @@ function getLayoutedElements(
 
 function ClusterNode({ data, selected }: NodeProps<IClusterFlowNodeData>) {
   const borderClass = data.hasAlert
-    ? 'border-danger/40 bg-danger/10'
-    : 'border-white/[0.10] bg-white/[0.05]';
+    ? "border-danger/40 bg-danger/10"
+    : "border-white/[0.10] bg-white/[0.05]";
 
   const isSelected = Boolean(selected);
 
   return (
     <div
       className={[
-        'flex h-[78px] w-[270px] flex-col gap-1 rounded-xl border p-3',
+        "flex h-[78px] w-[270px] flex-col gap-1 rounded-xl border p-3",
         borderClass,
-        isSelected ? 'ring-2 ring-accent/50' : null,
-      ].join(' ')}
+        isSelected ? "ring-2 ring-accent/50" : null,
+      ].join(" ")}
     >
       <Handle type="target" position={Position.Left} id="in" />
       <Handle type="source" position={Position.Right} id="out" />
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <div className="truncate text-body-md font-semibold text-[var(--text-primary)]">{data.label}</div>
+          <div className="truncate text-body-md font-semibold text-[var(--text-primary)]">
+            {data.label}
+          </div>
         </div>
-        {data.hasAlert ? <div className="h-2.5 w-2.5 rounded-full bg-danger" aria-hidden="true" /> : null}
+        {data.hasAlert ? (
+          <div
+            className="h-2.5 w-2.5 rounded-full bg-danger"
+            aria-hidden="true"
+          />
+        ) : null}
       </div>
-      <div className="text-caption text-[var(--text-secondary)] tabular-nums">Cấp: Cụm</div>
+      <div className="text-caption text-[var(--text-secondary)] tabular-nums">
+        Cấp: Cụm
+      </div>
     </div>
   );
 }
@@ -280,14 +305,18 @@ function RoleNode({ data, selected }: NodeProps<IRoleFlowNodeData>) {
   return (
     <div
       className={[
-        'flex h-[60px] w-[220px] flex-col gap-1 rounded-xl border border-white/[0.10] bg-white/[0.04] p-3',
-        selected ? 'ring-2 ring-accent/40' : null,
-      ].join(' ')}
+        "flex h-[60px] w-[220px] flex-col gap-1 rounded-xl border border-white/[0.10] bg-white/[0.04] p-3",
+        selected ? "ring-2 ring-accent/40" : null,
+      ].join(" ")}
     >
       <Handle type="target" position={Position.Left} id="in" />
       <Handle type="source" position={Position.Right} id="out" />
-      <div className="truncate text-body-md font-semibold text-[var(--text-primary)]">{data.label}</div>
-      <div className="text-caption text-[var(--text-secondary)] tabular-nums">Cấp: Vai trò</div>
+      <div className="truncate text-body-md font-semibold text-[var(--text-primary)]">
+        {data.label}
+      </div>
+      <div className="text-caption text-[var(--text-secondary)] tabular-nums">
+        Cấp: Vai trò
+      </div>
     </div>
   );
 }
@@ -298,15 +327,17 @@ function UnitNode({ data, selected }: NodeProps<IUnitFlowNodeData>) {
   return (
     <div
       className={[
-        'flex h-[66px] w-[240px] flex-col gap-2 rounded-xl border bg-white/[0.04] p-3',
-        selected ? 'ring-2 ring-accent/50' : 'border-white/[0.10]',
-      ].join(' ')}
+        "flex h-[66px] w-[240px] flex-col gap-2 rounded-xl border bg-white/[0.04] p-3",
+        selected ? "ring-2 ring-accent/50" : "border-white/[0.10]",
+      ].join(" ")}
     >
       <Handle type="target" position={Position.Left} id="in" />
       <Handle type="source" position={Position.Right} id="out" />
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <div className="truncate text-body-md font-semibold text-[var(--text-primary)]">{data.label}</div>
+          <div className="truncate text-body-md font-semibold text-[var(--text-primary)]">
+            {data.label}
+          </div>
           <div className={`text-caption tabular-nums ${tone.textClass}`}>
             Health: {data.healthScore} ({data.healthBand})
           </div>
@@ -321,10 +352,14 @@ function UnitNode({ data, selected }: NodeProps<IUnitFlowNodeData>) {
 
 function ContactNode({ data }: NodeProps<IContactFlowNodeData>) {
   return (
-    <div className="flex h-[54px] w-[220px] flex-col gap-1 rounded-xl border border-white/[0.10] bg-white/[0.03] p-3">
+    <div className="flex min-h-[54px] w-[220px] flex-col gap-1 rounded-xl border border-white/[0.10] bg-white/[0.03] p-3">
       <Handle type="target" position={Position.Left} id="in" />
-      <div className="text-body-md truncate font-semibold text-[var(--text-primary)]">{data.label}</div>
-      <div className="text-caption truncate text-[var(--text-secondary)]">{data.title}</div>
+      <div className="text-body-md truncate font-semibold text-[var(--text-primary)]">
+        {data.label}
+      </div>
+      <div className="text-caption truncate text-[var(--text-secondary)]">
+        {data.title}
+      </div>
     </div>
   );
 }
@@ -345,15 +380,22 @@ export function OrgTreeCanvas({
   onSelectUnit,
 }: IOrgTreeCanvasProps): ReactElement {
   const { nodes, edges } = useMemo(() => {
-    if (!selectedClusterNode) return { nodes: [] as Node<IOrgChartFlowNodeData>[], edges: [] as Edge[] };
-    const { nodes: rawNodes, edges: rawEdges } = createNodesAndEdgesForCluster(selectedClusterNode, selectedUnitId);
+    if (!selectedClusterNode)
+      return {
+        nodes: [] as Node<IOrgChartFlowNodeData>[],
+        edges: [] as Edge[],
+      };
+    const { nodes: rawNodes, edges: rawEdges } = createNodesAndEdgesForCluster(
+      selectedClusterNode,
+      selectedUnitId,
+    );
     return getLayoutedElements(rawNodes, rawEdges);
   }, [selectedClusterNode, selectedUnitId]);
 
   const onNodeClick = useCallback(
     (_event: ReactMouseEvent, node: Node<IOrgChartFlowNodeData>) => {
-      if (node.data.kind === 'unit') onSelectUnit(node.data.unitId);
-      if (node.data.kind === 'contact') onSelectUnit(node.data.unitId);
+      if (node.data.kind === "unit") onSelectUnit(node.data.unitId);
+      if (node.data.kind === "contact") onSelectUnit(node.data.unitId);
     },
     [onSelectUnit],
   );
@@ -387,4 +429,3 @@ export function OrgTreeCanvas({
     </div>
   );
 }
-

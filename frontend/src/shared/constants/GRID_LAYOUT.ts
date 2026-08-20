@@ -21,7 +21,7 @@ export interface IGridLayoutConfig {
  */
 export const GRID_LAYOUT: IGridLayoutConfig = {
   headerHeight: 72,
-  outsidePadding: 24,
+  outsidePadding: 16,
   gutter: 14,
   cols: 12,
   rows: 9,
@@ -34,4 +34,3 @@ export type IGridPosition = {
   rowStart: number;
   rowSpan: number;
 };
-

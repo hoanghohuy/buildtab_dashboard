@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { KIOSK_AUTO_ROTATE } from '@/features/kiosk/constants/KIOSK_CONFIG';
 import { pauseRotation, resumeRotation, setActiveTab } from '@/features/kiosk/slices/kioskSlice';
 import type { TDashboardTab } from '@/features/kiosk/slices/kioskSlice';
 
@@ -32,7 +33,7 @@ export interface IUseAutoRotateTabResult {
 /**
  * Auto-rotate tab theo durations kiosk và tính progress mảnh dưới tab bar.
  *
- * - Chạy khi `kioskSlice.isKioskMode === true`.
+ * - Chạy khi `kioskSlice.isKioskMode === true` và `KIOSK_AUTO_ROTATE` (env `VITE_KIOSK_AUTO_ROTATE`).
  * - Auto-rotate khi `isRotating === true` và `pausedUntil === null` hoặc `Date.now() > pausedUntil`.
  * - Pause 180s khi user tương tác (do useIdleDetection gọi `pauseFor180Seconds`).
  * - Chuyển tab bằng Redux `setActiveTab` + push router.
@@ -92,9 +93,9 @@ export function useAutoRotateTab(): IUseAutoRotateTabResult {
     setProgressPercent(null);
   }, [activeTab]);
 
-  // Bật rotation khi kiosk mode bật.
+  // Bật rotation khi kiosk mode bật — không ghi đè khi env tắt auto-rotate (debug).
   useEffect(() => {
-    if (!isKioskMode) return;
+    if (!isKioskMode || !KIOSK_AUTO_ROTATE) return;
     if (!isRotating) dispatch(resumeRotation());
   }, [dispatch, isKioskMode, isRotating]);
 
@@ -149,7 +150,7 @@ export function useAutoRotateTab(): IUseAutoRotateTabResult {
   }, [activeTab, computedSequence, dispatch, isKioskMode, pauseFor180Seconds, selectTab]);
 
   useEffect(() => {
-    if (!isKioskMode) return undefined;
+    if (!isKioskMode || !KIOSK_AUTO_ROTATE) return undefined;
 
     const intervalId = window.setInterval(() => {
       const { isRotating: rotatingNow, pausedUntil: pausedUntilNow, activeTab: activeTabNow, rotationDurations: durationsNow } =
@@ -220,7 +221,7 @@ export function useAutoRotateTab(): IUseAutoRotateTabResult {
   }, [dispatch, isKioskMode, navigate]);
 
   return {
-    progressPercent: isKioskMode ? progressPercent : null,
+    progressPercent: isKioskMode && KIOSK_AUTO_ROTATE ? progressPercent : null,
     pauseFor180Seconds,
     selectTab,
   };
