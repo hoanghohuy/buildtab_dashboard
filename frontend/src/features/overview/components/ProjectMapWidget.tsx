@@ -635,7 +635,7 @@ export function ProjectMapWidget({
       ) : null}
 
       {/* Overlay: Thông tin dự án */}
-      <div className="absolute left-4 bottom-4 z-10 w-[30%] min-w-[260px] max-w-[360px] rounded-2xl border border-white/[0.12] bg-base-elevated p-4 shadow-glass">
+      <div className="absolute left-4 top-4 z-10 w-[30%] min-w-[260px] max-w-[360px] rounded-2xl border border-white/[0.12] bg-base-elevated p-4 shadow-glass">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <div className="text-caption text-[var(--text-secondary)]">

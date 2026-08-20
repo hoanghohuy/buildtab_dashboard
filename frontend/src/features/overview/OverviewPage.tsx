@@ -20,14 +20,14 @@ import { UnitRankingWidget } from '@/features/overview/components/UnitRankingWid
 /**
  * TAB 1 — Tổng quan dự án (không deep map).
  *
- * Widget layout theo V0 trong `DashboardGrid`:
- * - W1.1 Map placeholder: C1–C6, R2–R5
- * - W1.2 Document S-curve: C7–C12, R2–R5
- * - W1.3 Delayed packages: C4–C6, R6–R8
- * - W1.4/1.5 Unit ranking: C7–C9, R6–R8
- * - W1.6 Top risks + heatmap: C10–C12, R6–R8
- * - W1.7 Site photos: C1–C3, R6–R8
- * - W1.8 Milestone ribbon: C1–C12, R9
+ * Lưới 12×9 (R1 = KPI strip trong shell):
+ * - W1.1 Map: C1–C6, R2–R6
+ * - W1.2 Document S-curve: C7–C12, R2–R4
+ * - W1.7 Site photos: C1–C3, R7–R9 (sát dưới map)
+ * - W1.3 Delayed packages: C4–C6, R7–R9 (sát dưới map)
+ * - W1.4/1.5 Unit ranking: C7–C9, R5–R7
+ * - W1.6 Top risks + heatmap: C10–C12, R5–R7
+ * - W1.8 Milestone ribbon: C7–C12, R8–R9 (cùng cột ranking + rủi ro)
  */
 export default function OverviewPage(): ReactElement {
   const { t } = useTranslation('overview');
@@ -42,7 +42,7 @@ export default function OverviewPage(): ReactElement {
         title={t('map.title', 'Bản đồ tuyến')}
         icon={<MapIcon className="h-5 w-5" aria-hidden="true" />}
         subtitle={t('map.subtitle', 'Tuyến thi công · SPI')}
-        position={{ colStart: 1, colSpan: 6, rowStart: 2, rowSpan: 4 }}
+        position={{ colStart: 1, colSpan: 6, rowStart: 2, rowSpan: 5 }}
         isLoading={isLoading}
         error={error}
       >
@@ -53,7 +53,7 @@ export default function OverviewPage(): ReactElement {
         title={t('sCurve.title', 'S-Curve tiến độ hồ sơ')}
         icon={<ChartLine className="h-5 w-5" aria-hidden="true" />}
         subtitle={sCurveSubtitle}
-        position={{ colStart: 7, colSpan: 6, rowStart: 2, rowSpan: 4 }}
+        position={{ colStart: 7, colSpan: 6, rowStart: 2, rowSpan: 3 }}
         isLoading={isLoading}
         error={error}
       >
@@ -64,7 +64,7 @@ export default function OverviewPage(): ReactElement {
         title={t('topDelay.title', 'Top gói chậm nhất')}
         icon={<Hourglass className="h-5 w-5" aria-hidden="true" />}
         subtitle={t('topDelay.delayDays', 'Chậm (ngày)')}
-        position={{ colStart: 4, colSpan: 3, rowStart: 6, rowSpan: 3 }}
+        position={{ colStart: 4, colSpan: 3, rowStart: 7, rowSpan: 3 }}
         isLoading={isLoading}
         error={error}
       >
@@ -75,7 +75,7 @@ export default function OverviewPage(): ReactElement {
         title={t('ranking.title', 'Xếp hạng nhà thầu / tư vấn')}
         icon={<Trophy className="h-5 w-5" aria-hidden="true" />}
         subtitle="TVTK / Nhà thầu"
-        position={{ colStart: 7, colSpan: 3, rowStart: 6, rowSpan: 3 }}
+        position={{ colStart: 7, colSpan: 3, rowStart: 5, rowSpan: 3 }}
         isLoading={isLoading}
         error={error}
       >
@@ -88,7 +88,7 @@ export default function OverviewPage(): ReactElement {
         title={t('risk.title', 'Top rủi ro')}
         icon={<AlertTriangle className="h-5 w-5" aria-hidden="true" />}
         subtitle={t('risk.activeRisks', 'Rủi ro đang mở')}
-        position={{ colStart: 10, colSpan: 3, rowStart: 6, rowSpan: 3 }}
+        position={{ colStart: 10, colSpan: 3, rowStart: 5, rowSpan: 3 }}
         isLoading={isLoading}
         error={error}
       >
@@ -99,7 +99,7 @@ export default function OverviewPage(): ReactElement {
         title={t('sitePhotos.title', 'Ảnh công trường')}
         icon={<Camera className="h-5 w-5" aria-hidden="true" />}
         subtitle={t('sitePhotos.latest', 'Mới nhất')}
-        position={{ colStart: 1, colSpan: 3, rowStart: 6, rowSpan: 3 }}
+        position={{ colStart: 1, colSpan: 3, rowStart: 7, rowSpan: 3 }}
         isLoading={isLoading}
         error={error}
       >
@@ -109,7 +109,7 @@ export default function OverviewPage(): ReactElement {
       <WidgetContainer
         title={t('milestones.title', 'Mốc tiến độ quan trọng')}
         icon={<CalendarDays className="h-5 w-5" aria-hidden="true" />}
-        position={{ colStart: 1, colSpan: 12, rowStart: 9, rowSpan: 1 }}
+        position={{ colStart: 7, colSpan: 6, rowStart: 8, rowSpan: 2 }}
         isLoading={isLoading}
         error={error}
       >
