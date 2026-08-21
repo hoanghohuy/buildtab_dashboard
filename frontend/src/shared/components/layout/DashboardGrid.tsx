@@ -29,7 +29,8 @@ function getPositionFromChild(child: ReactElement): IGridPosition | null {
 
 /**
  * Lưới dashboard 12 cột × 9 hàng.
- * Màn lớn (≥1367px): hàng `fr` khít 100vh. iPad: cao theo nội dung, cuộn dọc.
+ * Mobile (≤639px): 1 cột, mỗi widget một hàng. iPad: cao theo nội dung, cuộn dọc.
+ * Màn lớn (≥1367px): hàng `fr` khít 100vh.
  */
 export function DashboardGrid({ children }: IDashboardGridProps): ReactElement {
   return (
@@ -43,7 +44,7 @@ export function DashboardGrid({ children }: IDashboardGridProps): ReactElement {
         className="dashboard-grid-track w-full"
         style={{
           display: 'grid',
-          gridTemplateColumns: `repeat(${GRID_LAYOUT.cols}, minmax(0, 1fr))`,
+          gridTemplateColumns: 'var(--dash-grid-cols)',
           gridTemplateRows: 'var(--dash-grid-rows)',
           gap: GRID_LAYOUT.gutter,
           alignContent: 'var(--dash-grid-align)',

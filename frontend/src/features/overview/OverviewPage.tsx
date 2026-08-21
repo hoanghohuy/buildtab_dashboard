@@ -74,6 +74,7 @@ export default function OverviewPage(): ReactElement {
         icon={<MapIcon className="h-5 w-5" aria-hidden="true" />}
         subtitle={t('map.subtitle', 'Tuyến thi công · SPI')}
         position={layout.map}
+        widgetId="project-map"
         isLoading={isLoading}
         error={error}
       >

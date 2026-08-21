@@ -55,7 +55,7 @@ export function TabNavigation({ progressPercent, onUserInteraction, onSelectTab 
 
   return (
     <div className="relative">
-      <nav className="flex items-center gap-2">
+      <nav className="flex flex-wrap items-center gap-1 sm:gap-2">
         {TAB_ITEMS.map((tab) => {
           const isActive = tab.key === activeTab;
           return (
@@ -74,7 +74,7 @@ export function TabNavigation({ progressPercent, onUserInteraction, onSelectTab 
                 navigate(tab.route);
               }}
               className={[
-                'rounded-[10px] px-4 py-2 text-caption transition-colors',
+                'rounded-[10px] px-2.5 py-2 text-caption transition-colors sm:px-4',
                 isActive
                   ? 'bg-white/10 text-[var(--text-primary)]'
                   : 'text-[var(--text-tertiary)] hover:bg-white/5',

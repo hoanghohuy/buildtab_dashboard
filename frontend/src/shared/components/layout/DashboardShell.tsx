@@ -187,7 +187,7 @@ export function DashboardShell({ children }: IDashboardShellProps): ReactElement
   return (
     <div ref={rootRef} className="dashboard-shell kiosk-root flex min-h-dvh w-full flex-col">
       <header
-        className="flex h-[72px] w-full items-center justify-between gap-6 border-b border-white/[0.08] bg-[rgba(7,11,20,0.55)] px-6 backdrop-blur-glass"
+        className="dashboard-header flex h-[72px] w-full items-center justify-between gap-6 border-b border-white/[0.08] bg-[rgba(7,11,20,0.55)] px-4 backdrop-blur-glass sm:px-6"
         style={{ height: GRID_LAYOUT.headerHeight }}
       >
         <div className="min-w-0">
@@ -203,7 +203,7 @@ export function DashboardShell({ children }: IDashboardShellProps): ReactElement
           />
         </div>
 
-        <div className="flex flex-col items-end gap-1">
+        <div className="dashboard-header-meta flex flex-col items-end gap-1">
           <div className="text-caption text-[var(--text-secondary)] tabular-nums">
             {timeText}
           </div>

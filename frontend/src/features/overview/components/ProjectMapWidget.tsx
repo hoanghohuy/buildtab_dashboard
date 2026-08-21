@@ -107,35 +107,37 @@ export function ProjectMapWidget(_props: IProjectMapWidgetProps): ReactElement {
   const progressPercent = Math.max(0, Math.min(100, projectInfo.progressPercent));
 
   return (
-    <div className="relative h-full w-full overflow-hidden">
-      <div ref={mapContainerRef} className="absolute inset-0" />
+    <div className="relative flex h-full min-h-0 w-full flex-col overflow-hidden">
+      <div className="relative min-h-[220px] flex-1 overflow-hidden">
+        <div ref={mapContainerRef} className="absolute inset-0" />
 
-      {loadState === 'loading' ? (
-        <div
-          className="absolute inset-0 z-[5] flex flex-col items-center justify-center gap-3 bg-[var(--bg-base)]/80"
-          aria-busy="true"
-          aria-live="polite"
-        >
-          <div className="absolute inset-4 animate-pulse rounded-xl bg-white/[0.04]" />
-          <LoaderCircle
-            className="relative h-8 w-8 animate-spin text-accent"
-            aria-hidden="true"
-          />
-          <p className="relative text-caption text-[var(--text-secondary)]">
-            {t('map.loadingGis', 'Đang tải bản đồ GIS…')}
-          </p>
-        </div>
-      ) : null}
+        {loadState === 'loading' ? (
+          <div
+            className="absolute inset-0 z-[5] flex flex-col items-center justify-center gap-3 bg-[var(--bg-base)]/80"
+            aria-busy="true"
+            aria-live="polite"
+          >
+            <div className="absolute inset-4 animate-pulse rounded-xl bg-white/[0.04]" />
+            <LoaderCircle
+              className="relative h-8 w-8 animate-spin text-accent"
+              aria-hidden="true"
+            />
+            <p className="relative text-caption text-[var(--text-secondary)]">
+              {t('map.loadingGis', 'Đang tải bản đồ GIS…')}
+            </p>
+          </div>
+        ) : null}
 
-      {loadState === 'error' ? (
-        <div className="absolute inset-0 z-[5] flex items-center justify-center bg-[var(--bg-base)]/70">
-          <p className="px-4 text-center text-caption text-[var(--text-secondary)]">
-            {t('map.gisUnavailable', 'Không tải được bản đồ GIS.')}
-          </p>
-        </div>
-      ) : null}
+        {loadState === 'error' ? (
+          <div className="absolute inset-0 z-[5] flex items-center justify-center bg-[var(--bg-base)]/70">
+            <p className="px-4 text-center text-caption text-[var(--text-secondary)]">
+              {t('map.gisUnavailable', 'Không tải được bản đồ GIS.')}
+            </p>
+          </div>
+        ) : null}
+      </div>
 
-      <div className="absolute left-4 top-4 z-10 w-[30%] min-w-[260px] max-w-[360px] rounded-2xl border border-white/[0.12] bg-base-elevated p-4 shadow-glass">
+      <div className="z-10 w-full shrink-0 border border-white/[0.12] bg-base-elevated p-3 shadow-glass max-[833px]:rounded-none max-[833px]:border-x-0 max-[833px]:border-b-0 min-[834px]:absolute min-[834px]:left-4 min-[834px]:top-4 min-[834px]:w-[30%] min-[834px]:min-w-[260px] min-[834px]:max-w-[360px] min-[834px]:rounded-2xl min-[834px]:p-4">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <div className="text-caption text-[var(--text-secondary)]">

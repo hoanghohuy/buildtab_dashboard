@@ -70,6 +70,7 @@
 :root {
   --dash-header-h: 72px;
   --dash-grid-align: start;
+  --dash-grid-cols: repeat(12, minmax(0, 1fr));
   --dash-grid-rows: repeat(9, auto);
 }
 
@@ -129,10 +130,60 @@ body {
   }
 }
 
-/* Tablet nhỏ hơn iPad Pro: thêm hàng cho layout Tổng quan xếp chồng */
+/* Tablet nhỏ hơn iPad Pro: thêm hàng + map xếp thông tin dưới bản đồ */
 @media (max-width: 833px) {
   :root {
     --dash-grid-rows: repeat(14, auto);
+  }
+
+  .dashboard-grid-item:has([data-widget='project-map']) {
+    min-height: 520px;
+  }
+}
+
+/* Mobile: mỗi hàng đúng 1 widget — ghi đè gridColumn/gridRow inline */
+@media (max-width: 639px) {
+  :root {
+    --dash-grid-cols: minmax(0, 1fr);
+    --dash-grid-rows: none;
+  }
+
+  .dashboard-header {
+    height: auto !important;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .dashboard-header-meta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dashboard-grid-item {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+  }
+
+  .dashboard-grid-item[data-row-span] {
+    min-height: 240px;
+  }
+
+  .dashboard-grid-item[data-row-span='1'] {
+    min-height: 0;
+  }
+
+  .dashboard-grid-item:has([data-widget='document-s-curve']),
+  .dashboard-grid-item:has([data-widget='finance-top-chart']) {
+    min-height: 260px;
+  }
+
+  .dashboard-grid-item:has([data-widget='project-map']) {
+    min-height: 520px;
   }
 }
 
