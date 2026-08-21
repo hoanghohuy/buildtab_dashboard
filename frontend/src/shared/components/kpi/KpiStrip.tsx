@@ -16,8 +16,8 @@ export interface IKpiStripProps {
  */
 export function KpiStrip({ kpis }: IKpiStripProps): ReactElement {
   return (
-    <GlassPanel level="L1" className="h-full w-full p-2">
-      <div className="grid h-full grid-cols-2 gap-2 sm:grid-cols-3 min-[834px]:grid-cols-6">
+    <GlassPanel level="L1" className="h-full w-full p-2" data-widget="kpi-strip">
+      <div className="kpi-strip-grid grid h-full grid-cols-2 gap-2 sm:grid-cols-3">
         {kpis.slice(0, 6).map((metric) => (
           <KpiCard key={metric.key} metric={metric} />
         ))}
